@@ -1,0 +1,131 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+
+{% block styles %}
+    {{parent()}}
+{% endblock %}
+
+
+
+{% block cuerpo %}
+
+    {% block  breadcrumb %}
+        {% set breadoption = { 'Inicio': 'path_home', 'Lista de técnicos':'#'} %}
+        {{parent()}}
+    {% endblock%}
+
+
+    {% block bloqueMensaje %}
+        {% set mensaje_reporte = 'tecnico_list_mensaje' %}
+        {{ parent() }}
+    {% endblock %}
+
+
+
+    {%block nuevoybarradebusquedas %}
+        {% set addEntidadPath = 'tecnico_add' %}
+        {% set addButtonValue = 'Nuevo Técnico' %}
+        {% set addButtonTitle = 'Crear ' ~ addButtonValue %}
+        {{parent()}}
+    {% endblock%}
+
+    {# Mensaje de ayuda #}
+    <div class="row">
+        <div class="twelvecol">
+            <div class="ui-widget">
+                <div style="margin-top: 20px; margin-bottom: 20px; padding: 10px;" class="ui-state-highlight ui-corner-all">
+                    <p>
+                        <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"> </span> <strong>
+
+                            Ayuda General: <br>
+                        </strong>
+                        BC Blanquear Contaraseña se utiliza para resetear los password cuando alguien se olvida o pierde su contraseña.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# Listados #}
+    <fieldset>
+        <div class="twelvecol">
+            {% embed  'ThemeAplicativoBundle:Componentes:tabla.html.twig' %}
+
+                {% block TituloTabla %}Lista de Técnicos{% endblock %}
+
+                {% block headerTabla %}
+
+                    <td class="columns-dest">{{ knp_pagination_sortable(pagination, 'Identificador', 'A.id') }}</td>
+                    <td class="columns-dest">{{ knp_pagination_sortable(pagination, 'Nombre', 'A.nombre') }}</td>
+                    <td class="columns-dest">{{ knp_pagination_sortable(pagination, 'Apellido', 'A.apellido') }}</td>
+
+                    <td class="columns-dest">Teléfono Fijo</td>
+                    <td class="columns-dest">email</td>
+                    <td class="columns-dest">Acciones Básicas</td>
+                    <td class="columns-dest">Acciones de cuenta</td>
+
+
+                {% endblock %}
+
+
+                {% block cuerpoTabla %}
+                    {% for A in pagination %}
+                        <div class="container">
+                            <tr>
+                                <td>{{A.id}}</td>
+                                <td>{%if A.isActive %}
+                                        <span class="label label-success">Act</span>
+                                    {% else %}
+                                        <span class="label label-danger">Inact</span>
+                                    {% endif %}
+                                    {{A.nombre}}</td>
+                                <td>{{A.apellido}}</td>
+                                <td>{{A.telefono}}</td>
+                                <td>{{A.email}}</td>
+                               
+                                <td>
+                                    <button title="Ver" class="opciones" onclick="location.href = '{{path("tecnico_view",{'id':A.id})}}';">V</button>
+                                <button title="Editar" class="opciones" onclick="location.href = '{{path("tecnico_edit",{'id':A.id})}}';">E</button>
+                                
+                                </td>
+                            
+                                <td>
+                                    <button title="Blanquear Contraseña" class="opciones"
+                                            onclick="location.href = '{{path("reset_pass_tecnico",{'id':A.id})}}';">BC</button>
+                                </td>
+                        
+                            </tr>
+                        </div>
+                    {% endfor %}
+
+
+
+                {% endblock %}
+                {% block paginacion %}
+                    <div class="count">
+                        <div class="alert alert-info">Total: {{ pagination.getTotalItemCount }}</div>
+                    </div>
+
+                    <div class="paginacion">
+
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+
+
+                {% endblock %}
+
+            {% endembed %}
+
+
+
+
+
+        </div>
+    </fieldset>
+
+    {% block botonArriba %}
+        {{parent()}}
+    {%    endblock %}
+{% endblock %}
+
+

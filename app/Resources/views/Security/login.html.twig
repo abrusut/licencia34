@@ -1,0 +1,42 @@
+{% extends 'AppBundle:Page:index.html.twig' %}
+
+{% block cuerpo %}
+    <fieldset>
+
+        <div class="fourcol">
+
+        </div>
+        <div class="onecol"></div>
+        <div  class="sevencol last ">
+
+            <form action="{{ path('login_check') }}" method="post" >
+                {% if error %}
+                    {#<div class="text-danger"> #}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <label for="username">Usuario:</label>
+
+                <input type="text" id="username"
+                       name="_username"
+                       value="{{ last_username }}"
+                       placeholder="Ingrese su email" />
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="_password" />
+
+
+                <div class="twelvecol">
+                    <input type="checkbox" id="no_cerrar" name="_remember_me" />
+                    <label for="no_cerrar">No cerrar sesión</label>
+                </div>
+
+                <input type="hidden" name="_target_path" value="path_home" />
+
+                <input type="submit" name="login" value="Acceder" />
+            </form>
+        </div>
+
+    </fieldset>
+{% endblock %}

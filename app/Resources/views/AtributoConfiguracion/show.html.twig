@@ -1,0 +1,100 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block nuevoybarradebusquedas %}
+{% endblock %}
+{% block styles %}
+     <!-- Le styles -->
+        <link href="{{ asset('bundles/petkoparacrudgenerator/css/bootstrap.min.css') }}" rel="stylesheet"> 
+         <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">              
+{% endblock %}
+
+{% block javascriptsIncludes %} 
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+     
+{% endblock %} 
+
+{% block title %}
+Atributo Configuracion
+{% endblock %}
+
+{% block cuerpo %}
+
+{% block body %}
+
+<div class="row">
+    <div class="page-header">
+        <h2><a href="{{ path('atributoconfiguracion') }}">Ver Atributo Configuracion 
+        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ atributoConfiguracion.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Clave</strong></p>
+        <p>
+            {{ atributoConfiguracion.clave }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Valor</strong></p>
+        <p>
+            {{ atributoConfiguracion.valor }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha Alta</strong></p>
+        <p>
+            {% if atributoConfiguracion.createdAt %}{{ atributoConfiguracion.createdAt|date('d-m-Y H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha Actualizacion</strong></p>
+        <p>
+            {% if atributoConfiguracion.updatedAt %}{{ atributoConfiguracion.updatedAt|date('d-m-Y H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha Baja</strong></p>
+        <p>
+            {% if atributoConfiguracion.fechaBaja %}{{ atributoConfiguracion.fechaBaja|date('d-m-Y H:i:s') }}{% endif %}
+        </p>
+
+    </div></div>
+
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-default" href="{{ path('atributoconfiguracion') }}">
+        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+        Volver a Listado
+    </a>
+    <a class="btn btn-primary" href="{{ path('atributoconfiguracion_edit', { 'id':  atributoConfiguracion.id }) }}">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        Editar
+    </a>   
+</div>
+
+</div>
+
+
+{% endblock %}
+{% endblock %}
+

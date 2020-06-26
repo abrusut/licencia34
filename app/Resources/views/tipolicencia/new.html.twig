@@ -1,0 +1,109 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block nuevoybarradebusquedas %}
+{% endblock %}
+{% block styles %}
+     <!-- Le styles -->
+        <link href="{{ asset('bundles/petkoparacrudgenerator/css/bootstrap.min.css') }}" rel="stylesheet">               
+        <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">    
+{% endblock %}
+
+
+{% block javascriptsIncludes %} 
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+      <!-- Load jQuery UI Main JS (datepicker) -->
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+     
+{% endblock %} 
+
+{% block title %}
+Tipo Licencia
+{% endblock %}
+
+{% block cuerpo %}
+{% block body %}
+
+<div class="row col-md-12">
+    <div class="col-md-12">
+        <div class="page-header">
+        <h2><a href="{{ path('tipolicencia') }}">Nuevo Tipo Licencia <span class="glyphicon glyphicon-file" aria-hidden="true"></span></a> </h2>
+        </div>
+    </div>    
+
+        <div class="col-md-12">
+                        <div class="ui-widget">
+                            <div style="margin-right: 20px;margin-top: 20px; margin-bottom: 20px; padding: 10px;" class="ui-state-highlight ui-corner-all">
+                                <p>
+                                    <a data-toggle="collapse" href="#help" aria-expanded="false" aria-controls="help">
+                                        <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"> </span> 
+                                        <strong>
+                                            Ver Ayuda General                                        
+                                        </strong>
+                                    </a>
+                                    <div class="collapse" id="help">
+                                    <ul class="list-group"> <strong><span class="glyphicon glyphicon-cog"></span>GENERO JUBILADO</strong>
+                                        <li class="list-group-item">Si configura esto en 'j', se validara que la persona indique jubilado "Si" en el alta de la licencia</li>
+                                        <li class="list-group-item"> Si configura esto en 'f', se validara que la persona indique sexo = "Femenino" en el alta de la licencia</li>                                        
+                                        <li class="list-group-item"> Si configura esto en 'm', se validara que la persona indique sexo = "Masculino" en el alta de la licencia</li>                                        
+                                    </ul>
+                                    <ul class="list-group"> <strong><span class="glyphicon glyphicon-cog"></span>Aplica en Provincia</strong>
+                                        <li class="list-group-item">Si configura esto en 'SF', el tipo de licencia solo estara disponible si la persona es de provincia Santa Fe</li>
+                                        <li class="list-group-item">Si configura esto en 'T', el tipo de licencia estará disponible siempre que la persona NO sea de provincia Santa Fe</li>                                                                             
+                                    </ul>
+                                    </div>
+                              
+                                </p>
+                            </div>
+                        </div>
+                    </div>   
+              
+<div class="row">
+    <div class="row">
+    <div class="col-md-12">
+        {% for type, flashMessages in app.session.flashbag.all() %} 
+        {% for flashMessage in flashMessages %}
+        <div class="alert alert-{{ type }}">
+            {{ flashMessage|raw }}
+        </div>
+         {% endfor %} 
+         {% endfor %} 
+    </div>
+</div>
+    
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit" name="submit" value="save" class="btn btn-primary"> 
+            Guardar <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+        </button>
+        <button type="submit" name="submit" value="saveAndAdd" class="btn btn-info"> 
+            Guardar <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </button>
+        <div class="form-group">
+        <a class="btn btn-default" href="{{ path('tipolicencia') }}">
+            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+            Volver al Listado
+        </a>
+    </div>
+    </p>
+    
+
+    {{ form_end(form) }}
+
+    <hr/>
+
+
+
+</div>
+
+
+{% endblock %}
+
+{% endblock %} 

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Emisi&oacute;n de Boletas Licencias Caza y Pesca</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="copyright" content="&copy;" />
+    <meta name="robot" content="all" />
+    <!--link rel="icon" href="http://www.santafe.gob.ar/assets/standard/images/favicon.ico" -->
+
+ 
+  </head>
+  <body>
+    <style>
+      .titulo_aplicativo {
+        color: #108a97;
+      }
+      .table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      .table-con-borde {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid black;
+      }
+
+      .th-con-borde-titulo,
+      .td-con-borde-titulo {
+        padding: 15px;
+        text-align: center;
+        color: white;
+        border: 1px solid black;
+        background-color: gray;
+      }
+      .th-con-borde-subtitulo,
+      .td-con-borde-subtitulo {
+        text-align: center;
+
+        border: 1px solid black;
+        padding: 15px;
+      }
+      .th-con-borde-titulo-left,
+      .td-con-borde-titulo-left {
+        padding: 15px;
+        text-align: left;
+        color: white;
+        background-color: gray;
+        border: 1px solid black;
+      }
+      .th-con-borde,
+      .td-con-borde {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid black;
+      }
+
+      .th,
+      .td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 0px solid #ddd;
+        border-top: 0px solid #ddd;
+        border-left: 0px;
+        border-right: 0px;
+      }
+      .center {
+        text-align: center;
+      }
+      .texto-chico {
+        font-size: medium;
+      }
+
+      .left {
+        text-align: left;
+        align: left !important;
+      }
+
+      .right {
+        text-align: right;
+        align: right !important;
+      }
+
+      .texto-muy-chico {
+        font-size: small;
+        text-align: justify;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+    </style>
+
+
+    <div class="center">  
+          <img
+              src="{{ asset('images/gob-santafe.png') }}"
+              alt="{{encabezado_nombre_organismo }}" >   
+              <h3> {{ encabezado_nombre_organismo | default('Nombre de organismo') }} - Gobierno de Santa Fe</h3>
+    </div>
+<div>   
+<!--21 Digitos Total para identificar la licencia
+		     	2 tipo licencia
+			    9 id licencia
+		      10 id comprobante-->
+
+                  <div class="center">                  
+                    <strong>Licencia N°: </strong>
+                    {% if licencia.numero != null %} {{licencia.numero}} - {% else %} {{licencia.numeroCompleto}} {% endif %}
+                    <strong>Categoría:</strong> {{ licencia.tipoLicencia.descripcion }}
+                  </div>         
+    <table >
+      <tbody>            
+        <tr>
+          <td class="center">
+            <div class="texto-muy-chico">
+               Portar este documento personal e intransferible, lo habilita para la pesca o caza, 
+               en territorio de la provincia de Santa Fe, de acuerdo a la categoría 
+               que se indica en la Licencia en los términos regulados por la ley provincial {{leyNumero}}
+               y sus normas complementarias
+                <b> La presente no tiene validez,
+                  si no est&aacute; acompa&ntilde;ado por el comprobante
+                  de pago correspondiente.
+                  {% if licencia.tipoLicencia.generoJubilado == 'j' or licencia.tipoLicencia.generoJubilado == 'J' %} 
+                  y la documentacion que acredite su condicion de Jubilado
+                  {% endif %}</b>
+            </div>
+              <div class="center texto-muy-chico">
+                
+                  </div>            
+          </td>   
+            
+          <td>
+            <table >
+              <tbody>
+                
+                <tr>
+                  <td width="70px" >
+                    <strong>Titular:</strong>
+                  </td>
+                  <td width="150px" >
+                    {{ licencia.persona.nombre }}
+                    {{ licencia.persona.apellido }}
+                  </td>
+                  <td >
+                    
+                  </td>
+                </tr>
+                <tr>
+                  <td width="70px" >
+                    <strong>Domicilio:</strong>
+                    </td>
+                  <td class="left" width="210px">
+                     {{ licencia.persona.domicilioCalle}} {{ licencia.persona.domicilioNumero }}
+                  </td>                  
+                </tr>
+                <tr>
+                  <td  width="70px">
+                    <strong>Provincia:</strong>
+                  </td>
+                  <td  width="150px">
+                    {{ licencia.persona.provincia }}
+                  </td>                
+                </tr>
+                {% if licencia.persona.localidad is not null %}
+                <tr>
+                  <td  width="70px">
+                    <strong>Localidad:</strong>
+                  </td>
+                  <td  width="150px">
+                    {{ licencia.persona.localidad.LNomDis }}
+                  </td>                
+                </tr>
+                {% endif %}
+                 {% if licencia.persona.localidad is null 
+                  and licencia.persona.localidadOtraProvincia is not null %}
+                <tr>
+                  <td  width="70px">
+                    <strong>Localidad:</strong>
+                  </td>
+                  <td  width="150px">
+                    {{ licencia.persona.localidadOtraProvincia }}
+                  </td>                
+                </tr>
+                {% endif %}             
+                
+                <tr>
+                  <td width="70px" >
+                    <strong>Validez:</strong>
+                  </td>
+                  <td width="150px" class="left" >
+                  {{licencia.fechaDesde | date('d/m/Y')}} a 
+                    {{licencia.fechaVencimiento | date('d/m/Y')}}
+                  </td>
+                  <td>
+                    
+                  </td>
+                </tr>
+                <tr>
+                   <td width="70px" class="left" >
+                    <strong>Arancel:</strong>
+                  </td>
+                   <td width="100px">  
+                    {% if licencia.comprobante.monto == 0 %}
+                        <div class="left texto-muy-chico">GRATUITA</div>
+                    {% else %}                 
+                      ${{ licencia.comprobante.monto }}
+                    {% endif %}                 
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="79px" >
+                    <strong>Vencimiento:</strong>
+                  </td>
+                  <td width="150px" class="left" >                  
+                    {{licencia.fechaVencimiento | date('d/m/Y')}}
+                  </td>
+                  <td>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+<br/>
+
+    <div class="left">
+      <strong>SOLO PARA ABONAR EN CORREO OFICIAL</strong>
+      -
+      Santa Fe,
+            {{"now"|date('l')|replace({
+            'Monday'   : 'Lunes',
+            'Tuesday'  : 'Martes',
+            'Wednesday': 'Miercoles',
+            'Thursday' : 'Jueves',
+            'Friday'   : 'Viernes',
+            'Saturday' : 'Sabado',
+            'Sunday'   : 'Domingo'
+
+      })
+      }}, {{"now"|date('d')}} de
+      {{ "now"|date('F')|replace(
+      {
+          'January'   : 'Enero',
+          'February'  : 'Febrero',
+          'March'     : 'Marzo',
+          'April'     : 'Abril',
+          'May'       : 'Mayo',
+
+          'June'      : 'Junio',
+          'July'      : 'Julio',
+          'August'    : 'Agosto',
+
+          'September' : 'Septiembre',
+          'October'   : 'Octubre',
+          'November'  : 'Noviembre',
+          'December'  : 'Diciembre',      
+      }
+      )}}
+      de {{"now"|date('Y')}}.
+    </div>
+
+    <img
+      src="{{ asset('images/barra-header.png') }}"
+      height="2"
+      width="1200"
+      alt="Example"
+    />
+    
+     <table>
+        <tbody>               
+           <tr>
+            <td width="350" class="left">
+              <img
+                      src="{{ asset('barcode/barcode.png') }}"
+                      alt="{{licencia.comprobante.numeroCodigoBarra }}"
+                      width="350"
+                      height="80"
+                    />
+                  {{licencia.comprobante.numeroCodigoBarra }}       
+            </td>                      
+            <td width="200" class="left" style="padding-left:10px">            
+              <label style="margin-left:10px">Firma y Sello</label>
+
+            </td>
+          </tr>
+        </tbody>
+    </table>
+    
+
+
+
+     <img
+      src="{{ asset('images/barra-header.png') }}"
+      height="2"
+      width="1200"
+      alt="Example"
+    />
+
+
+  <!-- Segunda Parte -->
+   <table >
+              <tbody>
+                
+                <tr>
+                  <td width="50px" >
+                    <strong>Titular:</strong>
+                  </td>
+                  <td width="130px" >
+                    {{ licencia.persona.nombre }}
+                    {{ licencia.persona.apellido }}
+                  </td>                                                                
+                  <td width="50px" >
+                    <strong>Validez:</strong>
+                  </td>
+                  <td width="130px" class="center" >
+                   {{licencia.fechaDesde | date('d/m/Y')}} -
+                    {{licencia.fechaVencimiento | date('d/m/Y')}}
+                  </td>
+                  <td>
+                    
+                  </td>               
+                   <td width="75px" class="left" >
+                    <strong>Arancel:</strong>
+                  </td>
+                   <td width="80px">                    
+                    {% if licencia.comprobante.monto == 0 %}
+                        <div class="left texto-muy-chico">GRATUITA</div>
+                    {% else %}                 
+                      ${{ licencia.comprobante.monto }}
+                    {% endif %}  
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                <tr><td></td></tr>
+              </tbody>
+            </table>
+     <table>
+        <tbody>               
+           <tr>
+            <td width="350" class="left">
+              <img
+                      src="{{ asset('barcode/barcode.png') }}"
+                      alt="{{licencia.comprobante.numeroCodigoBarra }}"
+                      width="350"
+                      height="80"
+                    />
+                  {{licencia.comprobante.numeroCodigoBarra }}       
+            </td>                      
+            <td width="200" class="left" style="padding-left:10px">            
+              <label style="margin-left:10px">Firma y Sello</label>
+
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+ <img
+      src="{{ asset('images/barra-header.png') }}"
+      height="2"
+      width="1200"
+      alt="Example"
+    />
+
+<!-- Tercer Parte -->
+   <table >
+              <tbody>
+                
+                <tr>
+                  <td width="50px" >
+                    <strong>Titular:</strong>
+                  </td>
+                  <td width="130px" >
+                    {{ licencia.persona.nombre }}
+                    {{ licencia.persona.apellido }}
+                  </td>                                                                
+                  <td width="50px" >
+                    <strong>Validez:</strong>
+                  </td>
+                  <td width="130px" class="center" >
+                   {{licencia.fechaDesde | date('d/m/Y')}} -
+                    {{licencia.fechaVencimiento | date('d/m/Y')}}
+                  </td>
+                  <td>
+                    
+                  </td>               
+                   <td width="75px" class="left" >
+                    <strong>Arancel:</strong>
+                  </td>
+                   <td width="80px">                    
+                   {% if licencia.comprobante.monto == 0 %}
+                        <div class="left texto-muy-chico">GRATUITA</div>
+                    {% else %}                 
+                      ${{ licencia.comprobante.monto }}
+                    {% endif %}  
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                <tr><td></td></tr>
+              </tbody>
+            </table>
+     <table>
+        <tbody>               
+           <tr>
+            <td width="350" class="left">
+              <img
+                      src="{{ asset('barcode/barcode.png') }}"
+                      alt="{{licencia.comprobante.numeroCodigoBarra }}"
+                      width="350"
+                      height="80"
+                    />
+                  {{licencia.comprobante.numeroCodigoBarra }}       
+            </td>                      
+            <td width="200" class="left" style="padding-left:10px">            
+              <label style="margin-left:10px">Firma y Sello</label>
+
+            </td>
+          </tr>
+        </tbody>
+    </table>
+
+    <footer>
+     <div class="center">
+        <h6> {{ encabezado_nombre_organismo | default('Nombre de organismo') }} - Gobierno de Santa Fe</h6>        
+    </div>
+    </footer>
+  </body>
+</html>

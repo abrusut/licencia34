@@ -1,0 +1,163 @@
+<html lang="en">
+<head>
+    <title>Subir Arhivos Rendicion</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="copyright" content="&copy;" />
+        <meta name="robot" content="all" />
+    
+    <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">   
+
+    {# STG Theme Bundle #}
+    <link rel="icon" href="//www.santafe.gob.ar/assets/standard/images/favicon.ico">
+    {% include 'ThemeAplicativoBundle:Default:css-base.html.twig' %} 
+    <link rel="stylesheet" href="//www.santafe.gob.ar/assets/standard/css/menu/menu.css" type="text/css" />
+    <link rel="stylesheet" href="//www.santafe.gob.ar/assets/standard/css/pagination/html5-pagination.css" type="text/css" />
+    <!-- incluir estos nuevos estilos -->
+    <link rel="stylesheet" href="//www.santafe.gob.ar/assets/standard/css/fonts.css" type="text/css" > 
+    <link rel="stylesheet" href="//www.santafe.gob.ar/assets/standard/css/styles-1.0.2.css" type="text/css" > 
+    {% include 'ThemeAplicativoBundle:Default:ie.html.twig' %} 
+    {# STG Theme Bundle #}
+
+    {# Plugin upload files #}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/fileinput.min.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('css/theme.min.css') }}" media="all" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{{ asset('js/sortable.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/fileinput.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/es.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/theme.min.js') }}" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    {# Plugin upload files #}
+</head>
+<body id="top">
+
+        <div role="navigation" class="navbar navbar-sf navbar-fixed-top">
+            <div class="container row-top">
+                <div class="navbar-header">
+                    <a href="//www.santafe.gob.ar" class="navbar-brand"><img alt="Gobierno de Santa Fe" src="//www.santafe.gob.ar/assets/standard/images/gob-santafe.png"></a>                    
+                </div>
+            </div>
+        </div>        
+
+        <div class="container">
+
+            <div class="row top-padding">  
+
+                {% block top %}
+                    {% include 'ThemeAplicativoBundle:Default:top.html.twig' %}
+                {% endblock %}
+
+                {% block barraHerramientas %}                
+                {% endblock %}
+
+                <div id='cssmenu'>
+                    <ul>
+                        {% block menu %}
+                        {% block submenus %}
+                            <li class=''>
+                                <a href="{{ path('path_home') }}">
+                                    <span>Generar Licencia</span>
+                                </a>
+                            </li>
+
+                            {% if  is_granted('ROLE_SUPER_ADMIN')  %} {# or not is_granted('IS_AUTHENTICATED_FULLY')#}
+                                <li>
+                                    <li class="has-sub">
+                                        
+                                            <li class="has-sub"><a href="#"><span>Administrar</span></a>
+                                                        <ul>
+                                                            <li><a href="{{path('atributoconfiguracion')}}"><span>Parametros</span></a></li>
+                                                            <li><a href="{{path('numerador')}}"><span>Numerador</span></a></li>
+                                                            <li><a href="{{path('tipolicencia')}}"><span>Tipos de Licencia</span></a></li>
+                                                            <li class="last"><a href="{{path('tipodocumento')}}"><span>Tipos de Documento</span></a></li>
+                                                            <li><a href="{{path('comprobante')}}" ><span>Comprobantes</span></a></li>
+                                                            <li><a href="{{path('localidad')}}" ><span>Localidades</span></a></li>
+                                                            <li><a href="{{path('usuario')}}" ><span>Usuarios</span></a></li>
+                                                            <li><a href="{{path('persona')}}"><span>Personas</span></a></li>
+                                                            <li><a href="{{path('rendicion')}}"><span>Rendiciones</span></a></li>
+                                                            <li><a href="{{path('liquidacion')}}"><span>Liquidaciones</span></a></li>
+                                                            
+                                                        </ul>
+                                                    </li>
+                                                
+                                    </li>
+                                </li>
+                            {% endif %}
+                            {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_TECNICO')%}
+                                <li>
+                                    <li class="has-sub"><a href="#"><span>Gestion</span></a>
+                                                        <ul>                                                                                
+                                                            <li><a href="{{path('persona')}}"><span>Personas</span></a></li>
+                                                            <li><a href="{{path('rendicion')}}"><span>Rendiciones</span></a></li>
+                                                            <li><a href="{{path('liquidacion')}}"><span>Liquidaciones</span></a></li>
+                                                        </ul>
+                                                    </li>
+                                </li>
+                            {% endif %}
+                            {% if  is_granted('ROLE_ADMIN') or  is_granted('ROLE_SUPER_ADMIN') %}
+                                <li>
+                                    <a href="{{path('tecnico_list')}}">
+                                        <span>Tecnicos</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% if  not is_granted('IS_AUTHENTICATED_FULLY')  %}
+                                <li class='' style="float:right;text-align:right;">
+                                    <a href="{{ path('fos_user_security_login') }}">
+                                        <span>Entrar</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <li class="icons">
+
+                                </li>
+                            {% endif %}
+
+                        {% endblock %}
+
+                    {% endblock %}
+                    </ul>
+                </div>
+
+                {# ruta de navegacion #} 
+            <div class="kv-main">
+            <div class="page-header">
+                <h1><a href="{{ path('rendicion') }}">Subir Rendiciones / Liquidaciones</a>
+                </h1>
+            </div>
+            <form enctype="multipart/form-data" method="post" action="{{path('process_file_rendicion_liquidacion')}}">
+                <input id="file-upload" type="file" multiple><br />
+                <button type="submit" class="btn btn-success">Subir Archivos</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+            </form>
+        </div>
+</div>        
+</div>        
+{% block footer %}
+    {% include 'ThemeAplicativoBundle:Default:footer.html.twig' %} 
+{% endblock %}
+
+
+</body>
+<script>
+
+    $(document).ready(function () {
+
+        $("#file-upload").fileinput({
+            theme: 'explorer',
+            uploadUrl: "{{path('process_file_rendicion_liquidacion')}}",
+            language:'es',            
+            
+        });
+
+    });
+</script>
+</html>

@@ -1,0 +1,83 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block cuerpo %}
+
+    {% block  breadcrumb %}
+        {% set breadoption = { 'Inicio': 'path_home', 'Lista de Tecnicos': 'tecnico_list','Ver Técnico':'#'} %}
+        {{parent()}}
+    {% endblock%}
+
+    <div class="row form detalles">
+
+        <h3>Técnico</h3>
+        <h4>Datos básicos</h4>
+        <div class="row ">
+            <div class="fourcol">
+                <label>Id </label>
+                <span>
+                    <p class="label label-info">{{tecnico.id}}</p>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="fourcol ">
+                <label>Nombre </label>
+                <span> {{tecnico.nombre}}</span>
+            </div>
+            <div class="fourcol ">
+                <label>Apellido </label>
+                <span> {{tecnico.apellido}}</span>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="fourcol last">
+                <label>Telefono </label>
+                <span> {{tecnico.telefono}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="fourcol ">
+                <label>Email </label>
+                <span> {{tecnico.email}}</span>
+            </div>
+            <div class="fourcol last">
+                <label>Especialidad </label>
+                <span> {{tecnico.especialidad}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="fourcol">
+                <label>Estado </label>
+                <span>  {%if tecnico.isActive == 1%}
+                        <span><p class="label label-success">Activo</p></span>
+                    {% else %}
+                        <span><p class="label label-danger">Inactivo</p></span>
+                    {% endif %}</span>
+            </div>
+        
+            <div class="twelvecol">
+                <div class="elevencol"></div>
+                <div class="onecol last">
+                    {{ include('AppBundle:Form:delete_form.html.twig', { form:delete_form, message: 'Esta seguro?'}) }}
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+
+
+    {% block botonArriba %}
+        {{parent()}}
+    {%    endblock %}
+
+
+{% endblock %}
+
+
+

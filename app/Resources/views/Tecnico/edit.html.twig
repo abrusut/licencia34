@@ -1,0 +1,58 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+
+{% block cuerpo %}
+
+	{% block  breadcrumb %}
+        {% set breadoption = { 'Inicio': 'path_home', 'Lista de Tecnicos': 'tecnico_list','Editar Técnico':'#'} %}
+        {{parent()}}
+    {% endblock%}
+
+    <div class="row form">
+
+        <h3>Editar Técnico</h3>
+        <div class="row">
+            <div class="fourcol">
+                <div class="ui-widget">
+                    <div style="margin-top: 20px; margin-bottom: 20px; padding: 10px;" class="ui-state-highlight ui-corner-all">
+                        <p>
+                            <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"> </span> <strong>
+
+                                Ayuda General: <br>
+                            </strong>
+
+                            <br>
+                            El Técnico es la persona que se encarga de resolver los reportes que le fueron asignados.
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {{ form_start(form) }}
+            <form action='' method='POST'>
+                <div class="eightcol last">
+                    <div class="ui-widget">
+                        <div style="padding: 10px;">
+                            <div id="accordion">
+                                {{ form_errors(form) }}
+                                <h3>Datos del Técnico</h3>
+                                <div>
+                                    <p> {{ form_row(form.nombre) }}</p>
+                                    <p> {{ form_row(form.apellido) }}</p>
+                                    <p> {{ form_row(form.telefono) }}</p>
+                                    <p> {{ form_row(form.email) }}</p>
+                                    <p> {{ form_row(form.especialidad) }}</p>
+                                </div>
+
+                                {{form_rest(form)}}
+                            </div>
+                            <input type='submit' value='Guardar'>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </form>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

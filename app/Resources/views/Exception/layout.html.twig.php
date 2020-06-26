@@ -1,0 +1,1 @@
+{% extends 'AppBundle:Page:index.html.twig' %}

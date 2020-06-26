@@ -1,0 +1,28 @@
+imports:
+    - { resource: config.yml }
+
+#doctrine:
+#    orm:
+#        metadata_cache_driver: apc
+#        result_cache_driver: apc
+#        query_cache_driver: apc
+
+monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: error
+            handler: nested
+        nested:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            level: debug
+        console:
+            type: console
+            process_psr_3_messages: false
+        app_logs:
+            type:  rotating_file
+            max_files: 5
+            path:   "%kernel.logs_dir%/licenciaCyP_%kernel.environment%.log"
+            level:  debug
+            channels: ["!doctrine","!main","!event","!php","!translation","!security"]

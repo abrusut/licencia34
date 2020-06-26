@@ -1,0 +1,66 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block nuevoybarradebusquedas %}
+{% endblock %}
+{% block styles %}
+     <!-- Le styles -->
+        <link href="{{ asset('bundles/petkoparacrudgenerator/css/bootstrap.min.css') }}" rel="stylesheet">               
+         <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptsIncludes %} 
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+      
+{% endblock %} 
+
+{% block title %}
+{{ parent() }} - usuario 
+{% endblock %}
+
+{% block cuerpo %}
+<div class="table-responsive-lg">
+  <table class="table thead-dark table-light table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">id</th>
+        <th scope="col">username</th>
+        <th scope="col">email</th>
+        <th scope="col">enabled</th>
+        <th scope="col">roles</th>
+        <th scope="col">last login</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for e in entities %}
+      <tr>
+            <th scope="row">{{ loop.index }}</th>
+            <td>{{ e.id }}</td>
+            <td>{{ e.username }}</td>
+            <td>{{ e.email }}</td>
+            <td>{{ e.enabled }}</td>
+            <td>
+                {% for r in e.roles %}
+                    <div>{{ r }}<div>
+                {% endfor %}
+            </td>
+            <td>{{ e.lastLogin | date("d/m/Y H:m:s") }}</td>
+            <th>
+                <div class="btn-group" role="group" aria-label="botonera">
+                    <a type="button" class="btn btn-secondary" title="Editar" href="{{ path("usuario_roles", {id: e.id}) }}"><i class="material-icons">edit</i></a>
+                    <a type="button" class="btn btn-secondary" title="Eliminar" href="#"><i class="material-icons">delete</i></a>
+                </div>
+            </th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

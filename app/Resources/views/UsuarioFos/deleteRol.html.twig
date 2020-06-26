@@ -1,0 +1,36 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block nuevoybarradebusquedas %}
+{% endblock %}
+{% block styles %}
+     <!-- Le styles -->
+        <link href="{{ asset('bundles/petkoparacrudgenerator/css/bootstrap.min.css') }}" rel="stylesheet">               
+         <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block javascriptsIncludes %} 
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+      
+{% endblock %} 
+
+{% block title %}
+{{ parent() }} - usuario 
+{% endblock %}
+
+{% block cuerpo %}
+<form method=POST>
+    <div class="alert alert-danger" role="alert">
+        Realmente desea borrar el rol <strong>{{ entity.nombre }}</strong>?
+        <div>
+        {{ form_widget(form.submit, {'attr': {'class': 'btn btn-danger'}, 'label': 'Eliminar'} ) }}
+        </div>
+    </div>
+    {{ form_row(form._token) }}
+</form>
+{% endblock %}

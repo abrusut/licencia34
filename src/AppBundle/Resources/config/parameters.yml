@@ -1,0 +1,19 @@
+parameters:
+    keySalt:  licenciaCyPMinisterioProduccion
+    barcode_directory: '%kernel.root_dir%/../web/barcode/'
+    app.path.upload.file.rendicion.liquidacion: "%kernel.root_dir%/../web/uploads/files/"
+    app.read.csv.delimiter: ','
+    app.read.csv.add.empty.line: false
+    app.read.csv.head.rendicion:
+        - nis
+        - fechaCobro
+        - codigoBarraCliente        
+        - importeCobrado
+                
+    app.read.csv.head.liquidacion:
+        - nis
+        - fechaCobro
+        - codigoBarraCliente
+        - numeroRendicion
+        - importeCobrado
+        - comision

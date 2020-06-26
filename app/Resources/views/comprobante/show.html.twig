@@ -1,0 +1,140 @@
+{% extends "AppBundle:Page:index.html.twig" %}
+
+{% block nuevoybarradebusquedas %}
+{% endblock %}
+{% block styles %}
+     <!-- Le styles -->
+        <link href="{{ asset('bundles/petkoparacrudgenerator/css/bootstrap.min.css') }}" rel="stylesheet"> 
+         <link href="{{ asset('css/ajustesPetkoparaStg.css') }}" rel="stylesheet">              
+{% endblock %}
+
+{% block javascriptsIncludes %} 
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/petkoparacrudgenerator/js/petkopara-crud-generator.js') }}"></script>
+      <!-- Load jQuery UI Main JS (datepicker) -->
+    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>  
+{% endblock %} 
+
+{% block title %}
+{{ parent() }} - comprobante 
+{% endblock %}
+
+{% block cuerpo %}
+{% block body %}
+
+<div class="row">
+    <div class="page-header">
+        <h2><a href="{{ path('comprobante') }}" >Ver comprobante <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> </a></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ comprobante.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Monto</strong></p>
+        <p>
+            {{ comprobante.monto }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Recargo segundo vencimiento</strong></p>
+        <p>
+            {{ comprobante.recargoSegundoVencimiento }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Recargo primer vencimiento</strong></p>
+        <p>
+            {{ comprobante.recargoPrimerVencimiento }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Cliente sap</strong></p>
+        <p>
+            {{ comprobante.clienteSap }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Letra servicio</strong></p>
+        <p>
+            {{ comprobante.letraServicio }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Rendicion numero</strong></p>
+        <p>
+            {{ comprobante.rendicionNumero }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha Cobro</strong></p>
+        <p>
+            {% if comprobante.fechaCobro %}{{ comprobante.fechaCobro|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Primer vencimiento</strong></p>
+        <p>
+            {% if comprobante.primerVencimiento %}{{ comprobante.primerVencimiento|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Segundo vencimiento</strong></p>
+        <p>
+            {% if comprobante.segundoVencimiento %}{{ comprobante.segundoVencimiento|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Numero codigo barra</strong></p>
+        <p>
+            {{ comprobante.numeroCodigoBarra }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Fecha Alta</strong></p>
+        <p>
+            {% if comprobante.createdAt %}{{ comprobante.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div></div>
+
+<hr/>
+
+
+<div class="form-group">
+    <a class="btn btn-default" href="{{ path('comprobante') }}">
+        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+        Volver al Listado
+    </a>
+    <a class="btn btn-primary" href="{{ path('comprobante_edit', { 'id':  comprobante.id }) }}">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        Editar
+    </a>
+        
+</div>
+
+</div>
+{% endblock %}
+{% endblock %}
+

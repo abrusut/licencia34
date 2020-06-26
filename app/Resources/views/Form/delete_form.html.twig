@@ -1,0 +1,5 @@
+{# Template de mensaje de eliminar usado para dar confirmación al eliminar #}
+{{form_start(form)}}
+    {{form_widget(form)}}
+     <input type="submit" value="Eliminar" class="btn btn-danger" onclick=" return confirm('¿Confirma eliminación del registro en la base de datos?');" >
+{{form_end(form)}}

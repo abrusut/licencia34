@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Emisi&oacute;n de Boletas Licencias Caza y Pesca</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="copyright" content="&copy;" />
+        <meta name="robot" content="all" />
+        
+ {% block css %}
+  <!-- css custom theme -->            
+
+            <!-- assets fonts -->
+            <link rel="stylesheet" href="https://www.santafe.gob.ar/assets/standard/css/fonts.css" type="text/css">
+
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+                  rel="stylesheet">
+
+        <link rel="icon" href="//www.santafe.gob.ar/assets/standard/images/favicon.ico">
+   {% endblock %}
+{% block cuerpo %}
+</head>
+ <body>
+ {% if impresion is defined and impresion == 0 %}
+    <button onclick="printPDF()" class="btn btn-primary float-right"><i class="material-icons">print</i></button>
+{% endif %}
+  <table width="685"  align="center"  >
+  <tr>     
+    <td width="20" align="center"></td>
+  </tr>
+  <tr>     
+    <td height="190" colspan="2" align="center">       
+          <table border="0"  width="100%" height="210">
+            <tr> 
+              <td width="100%" align="center" >           
+                <table width="778" height="649" border="0"  class="tabla">              
+                  <tr>
+                    <td height="10" colspan="3"><div align="center"><strong>Ministerio de la Producci&oacute;n</strong></div></td>
+                  </tr>
+                  <tr>
+                    <td height="10" colspan="3"><div align="center"><strong>Emisi&oacute;n de Boletas Licencias Deportivas </strong></div></td>
+                  </tr>
+                  <tr>
+                    <td height="2" colspan="3">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td width="327" height="21"> 
+                      <span class="Estilo9"><strong>Solicitante:</strong> {{licencia.persona.apellido}}, {{licencia.persona.nombre}}</span>
+                    </td>
+                    <td width="451" colspan="2" align="right" >
+                      <div align="left" class="Estilo9"> <span class="textAdmin"><strong>Emisor:</strong> - </span></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="15"><span class="Estilo9"><strong>Vencimiento:</strong> {{licencia.fechaVencimiento |date('Y-m-d H:i:s')}} </span></td>
+                    <td colspan="2"> <span class="textAdmin Estilo9"><strong>N&ordm; Boleta :</strong> {{licencia.id}} </span> </td>
+                  </tr>             
+                  <tr>
+                    <td height="19" colspan="" nowrap bordercolor="#000000"><div align="center" class="Estilo9">
+                      <div align="left">DETALLE: {{licencia.tipoLicencia.descripcion}}</div>
+                    </div></td>
+                    <td colspan="2" nowrap bordercolor="#000000"><div align="center" class="Estilo9">
+                      <div align="left">IMPORTE: {{licencia.tipoLicencia.arancel}}</div>
+                    </div></td>
+                  </tr>
+                  <tr> 
+                      <td height="187" colspan="2">                   
+                        <div align="center"> 
+                        <!--img src="{{ barcodeGif(licencia.comprobante.numeroCodigoBarra) }}" width="568" height="164" border="0">
+                          <br -->                            
+                            <img width="50%" src="{{ licencia.comprobante.numeroCodigoBarra |markup_barcode_data_uri('invoice')}}">              
+                        </div>
+
+                      </td>
+                    </tr>
+                  <tr>
+                    <td height="19" colspan="3">------------------------------------------------------------------------------------------------------------------<span class="Estilo7">Para el Depositante</span></td>
+                  </tr>
+                  <tr>
+                    <td height="10" colspan="3"><div align="center"><strong>Ministerio de la Producci&oacute;n</strong></div></td>
+                  </tr>
+                  <tr>
+                    <td height="10" colspan="3"><div align="center"><strong>Emisi&oacute;n de Boletas Licencias Deportivas </strong></div></td>
+                  </tr>
+                  <tr>
+                    <td height="2" colspan="3">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td width="327" height="21" > 
+                    <span class="Estilo9"><strong>Solicitante:</strong> {{licencia.persona.apellido}}, {{licencia.persona.nombre}}</span>
+                    </td>
+                    <td width="451" colspan="2" align="right" >
+                      <div align="left" class="Estilo9"> <span class="textAdmin"><strong>Emisor:</strong> - </span></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="15"><span class="Estilo9"><strong>Vencimiento:</strong> {{licencia.fechaVencimiento |date('Y-m-d H:i:s')}} </span></td>
+                    <td colspan="2"> <span class="textAdmin Estilo9"><strong>N&ordm; Boleta :</strong> {{licencia.id}} </span> </td>
+                  </tr>             
+                  <tr>
+                    <td height="19" colspan="" nowrap bordercolor="#000000"><div align="center" class="Estilo9">
+                      <div align="left">DETALLE: {{licencia.tipoLicencia.descripcion}}</div>
+                    </div></td>
+                    <td colspan="2" nowrap bordercolor="#000000"><div align="center" class="Estilo9">
+                      <div align="left">IMPORTE: {{licencia.tipoLicencia.arancel}}</div>
+                    </div></td>
+                  </tr>
+                  <tr> 
+                      <td height="187" colspan="2" width="100px"> 
+                        <div align="center"> 
+                           <img width="50%" src="{{ licencia.comprobante.numeroCodigoBarra |markup_barcode_data_uri('invoice')}}">              
+
+                        <!--img src="{{ barcodeGif(licencia.comprobante.numeroCodigoBarra) }}" width="568" height="164" border="0"><br>
+                            {{licencia.comprobante.numeroCodigoBarra}}
+                        </div-->
+                        
+                        </td>
+                    </tr>
+                  <tr>
+                    <td height="19" colspan="3">------------------------------------------------------------------------------------------------------------------<span class="Estilo7">Para el Depositante</span></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+      </td>
+  </tr>
+</table>           
+
+{% endblock %}
+{% block javascripts %}
+
+       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+                integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+                integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+                crossorigin="anonymous"></script>
+
+
+    
+    <script language = "javascript">
+        function printPDF(){          
+          var printWindow = window.open('', '', 'height=400,width=800');
+          $.get( "{{ path('boleta_pago_imprimir', {licenciaId: licencia.id}) }}?impresion=1", function( data ) {
+              printWindow.document.write(data);
+              printWindow.document.close();
+              printWindow.print();
+              printWindow.close();
+          });
+      }
+ </script> 
+<script language = "javascript"  src = "{{ asset('js/utils.js') }}"/>              
+ <script language = "javascript"  src = "{{ asset('js/licencia.js') }}"/>              
+{% endblock %}      
+
+
+    </body>
+</html>

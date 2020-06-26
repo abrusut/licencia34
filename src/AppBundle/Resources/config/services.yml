@@ -1,0 +1,142 @@
+imports:
+    - { resource: parameters.yml }
+services:   
+    provincia_service:
+        class: AppBundle\Service\ProvinciaServiceImpl
+        autowire: true
+
+    licencia_service:
+        class: AppBundle\Service\LicenciaServiceImpl
+        autowire: true
+
+    persona_service:
+        class: AppBundle\Service\PersonaServiceImpl
+        autowire: true
+    
+    tipo_licencia_service:
+        class: AppBundle\Service\TipoLicenciaServiceImpl
+        autowire: true
+
+    json_service:
+        class: AppBundle\Service\JsonServiceImpl
+        autowire: true
+    
+    comprobante_service:
+        class: AppBundle\Service\ComprobanteServiceImpl
+        autowire: true
+
+    boleta_service:
+        class: AppBundle\Service\BoletaServiceImpl
+        autowire: true
+
+    encrypt_service:
+        class: AppBundle\Service\EncryptImpl
+        arguments: ['@logger','%keySalt%']
+
+    barcode_service:
+        class: AppBundle\Service\Barcode\Barcode        
+
+    liquidacion_service:
+        class: AppBundle\Service\LiquidacionServiceImpl
+        autowire: true
+
+    numerador_service:
+        class: AppBundle\Service\NumeradorServiceImpl
+        autowire: true
+    
+    rendicion_service:
+        class: AppBundle\Service\RendicionServiceImpl
+        autowire: true
+    
+    atributo_configuracion_service:
+        class: AppBundle\Service\AtributoConfiguracionServiceImpl
+        autowire: true
+
+    file_upload_service:
+        class: AppBundle\Service\FileUploaderServiceImpl
+        autowire: true
+    
+    file_csv_reader:
+        class: AppBundle\Service\FileCsvReaderServiceImpl
+        autowire: true
+    
+    file_rendicion_liquidacion_service:
+        class: AppBundle\Service\FileRendicionLiquidacionServiceImpl
+        autowire: true
+
+    barcode.twig_extension:
+        class: AppBundle\Twig\BarcodeTwigExtension
+        arguments: ['@barcode_service','%barcode_directory%']
+        public: false
+        tags:
+            - { name: twig.extension }    
+
+    persona_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Persona        
+        autowiring_types: AppBundle\Repository\IPersonaRepository
+
+    licencia_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Licencia
+        autowiring_types: AppBundle\Repository\ILicenciaRepository
+    
+    tipo_licencia_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\TipoLicencia
+        autowiring_types: AppBundle\Repository\ITipoLicenciaRepository
+    
+    comprobante_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Comprobante
+        autowiring_types: AppBundle\Repository\IComprobanteRepository
+
+    provincia_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+           - AppBundle\Entity\Provincia        
+        autowiring_types: AppBundle\Repository\IProvinciaRepository
+
+    numerador_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Numerador        
+        autowiring_types: AppBundle\Repository\INumeradorRepository
+    
+    liquidacion_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Liquidacion        
+        autowiring_types: AppBundle\Repository\ILiquidacionRepository
+    
+    rendicion_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Rendicion        
+        autowiring_types: AppBundle\Repository\IRendicionRepository        
+    
+    atributo_configuracion_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\AtributoConfiguracion        
+        autowiring_types: AppBundle\Repository\IAtributoConfiguracionRepository
+
+    file_rendicion_liquidacion_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\FileRendicionLiquidacion        
+        autowiring_types: AppBundle\Repository\IFileRendicionLiquidacionRepository

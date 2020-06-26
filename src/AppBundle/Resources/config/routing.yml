@@ -1,0 +1,107 @@
+path_home:
+    path:     /
+    defaults: { _controller: AppBundle:GestionarLicencia:add }    
+
+login_success_home:
+    path:     /admin
+    defaults: { _controller: AppBundle:Security:loginSuccess }   
+
+persona_add:
+   path:    /persona/add
+   defaults: { _controller: AppBundle:Persona:add }    
+
+regenerar_boleta_pago:
+   path:    /licencia/_regenerarboletapago/licencia/{licenciaId}/{readOnly}
+   defaults: { _controller: AppBundle:GestionarLicencia:regenerarBoletaPagoYCodigoBarra }  
+
+persona_findBy:
+   path:    /persona/findBy/{tipoDocumento}/{numeroDocumento}/{sexo}
+   defaults: { _controller: AppBundle:PersonaRest:findBy } 
+
+boleta_pago_imprimir_html:
+    path:     /boletaPago/imprimirhtml/{licenciaId}
+    defaults: { _controller: AppBundle:BoletaPago:imprimirHtml }    
+
+boleta_pago_imprimir:
+    path:     /boletaPago/imprimir/{licenciaId}
+    defaults: { _controller: AppBundle:BoletaPago:imprimir }   
+
+boleta_pago_imprimir_by_comprobante_id:
+    path:     /boletaPago/imprimir/comprobante/{id}
+    defaults: { _controller: AppBundle:BoletaPago:imprimirByComprobante }        
+    
+licencia_generada_detalle:
+    path:     /licencia/{licenciaId}
+    defaults: { _controller: AppBundle:GestionarLicencia:verLicencia }        
+
+provincia_findBy:
+   path:    /provincia/findBy/{provinciaId}/{provinciaNombre}
+   defaults: { _controller: AppBundle:Provincia:findBy } 
+
+provincia_findTiposLicenciaForProvincia:
+   path:    /provincia/findTiposLicenciaForProvincia
+   defaults: { _controller: AppBundle:Provincia:findTiposLicenciaForProvincia }    
+
+m_prod_licencia_cy_p_licencia:
+    resource: "@AppBundle/Controller/LicenciaController.php"
+    type:     annotation
+    prefix: /admin
+    
+m_prod_licencia_cy_p_comprobante:
+    resource: "@AppBundle/Controller/ComprobanteController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_localidad:
+    resource: "@AppBundle/Controller/LocalidadController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_usuario:
+    resource: "@AppBundle/Controller/UsuarioController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_tipo_licencia:
+    resource: "@AppBundle/Controller/TipoLicenciaController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_tipo_documento:
+    resource: "@AppBundle/Controller/TipoDocumentoController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_persona:
+    resource: "@AppBundle/Controller/PersonaController.php"
+    type:     annotation
+    prefix:   /admin    
+
+m_prod_licencia_cy_p_numerador:
+    resource: "@AppBundle/Controller/NumeradorController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_liquidacion:
+    resource: "@AppBundle/Controller/LiquidacionController.php"
+    type:     annotation
+    prefix:   /admin
+
+m_prod_licencia_cy_p_rendicion:
+    resource: "@AppBundle/Controller/RendicionController.php"
+    type:     annotation    
+    prefix:   /admin
+
+m_prod_licencia_cy_p_atributo_configuracion:
+    resource: "@AppBundle/Controller/AtributoConfiguracionController.php"
+    type:     annotation  
+    prefix:   /admin  
+
+m_prod_licencia_cy_p_upload_file_rendicion_liquidacion:
+    resource: "@AppBundle/Controller/UploadFileController.php"
+    type:     annotation  
+    prefix:   /admin  
+
+m_prod_licencia_cy_p_reimpresion_licencias:
+    resource: "@AppBundle/Controller/ReimpresionLicenciasController.php"
+    type:     annotation    

@@ -1,0 +1,117 @@
+{% extends "Page/base.html.twig" %}
+
+{% block css %}
+    {{parent()}}
+ <link rel="stylesheet"
+          type="text/css"
+          href="{{ asset('jquery-confirm/jquery-confirm.css') }}"/>
+{% endblock %}
+
+{% block main %}
+        <div class="loading">Loading&#8230;</div>
+
+    {% if app.session.flashBag.has('licenciaForm_message') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('licenciaForm_message') %}
+                        {{ msg }}
+                    {% endfor %}
+
+                    {% if urlBoletaPago is defined%}
+                        <input type='button' value='Imprimir Boleta Pago'
+                            onclick="imprimirBoletaPago('{{urlBoletaPago}}')">
+                    {% endif %}
+                </div>
+    {% endif %}
+
+    {% if app.session.flashBag.has('licenciaForm_message_error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('licenciaForm_message_error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% block  breadcrumbItems %}
+        {% set breadoption = { 'Inicio': 'path_home', 'Nueva Licencia': '#'} %}
+        {{parent()}}
+    {% endblock %}
+
+    <div class="row form">        
+            <h3>Datos de la licencia</h3>
+            <div class="row">
+                <div class="fourcol">
+                    <div class="ui-widget">
+                        <div style="margin-right: 20px;margin-top: 20px; margin-bottom: 20px; padding: 10px;" class="ui-state-highlight ui-corner-all">
+                            <p>
+                                <span style="float: left; margin-right: .3em;" class="ui-icon ui-icon-info"> </span> <strong>
+
+                                    Ayuda General: <br>
+                                </strong>
+
+                                <br>
+                             {% if ayudaGeneral is defined and ayudaGeneral is not null %}
+                                    {{ayudaGeneral.valor}}
+                             {% endif %}
+
+                            </p>
+                        </div>
+                    </div>
+                </div>               
+                <form name="mprod_licenciacypbundle_licencia" method="post" onsubmit="return confirmarGenerarLicencia();">        
+                    {{ form_start(form) }}                                                                
+                       <div class="eightcol last">                            
+                            <div id="accordion">                            
+                                <h3>Terminos y condiciones</h3>   
+                                <div id="divTerminosYCondiciones">
+                                    <p>
+                                    {% if terminosYCondiciones is defined and terminosYCondiciones is not null %}
+                                        {{terminosYCondiciones.valor}}
+                                    {% endif %}
+                                    </p>
+                                    <input type='button' value='Aceptar Terminos y Condiciones' onclick="step2()">
+                                </div>    
+                                
+                                <h3>Complete sus Datos</h3>   
+                                <div id="divBusquedaPersona">
+                                    Contenido
+
+                                     <input type='button' value='Buscar' onclick="buscarPersona()">
+                                </div>
+
+                                 <h3>Datos de la licencia</h3>
+                                 <div id="divFormularioLicencia">  
+                                                         
+                                    <div class="ui-widget">                                
+                                        <div style="padding: 10px;">                                        
+                                                                                   
+                                                    <div>
+                                                    </div>
+
+                                            <div id="localidad">
+
+                                            </div>
+                                            <div id="localidadOtraProvincia">
+
+                                            </div>
+                                            {{form_rest(form)}}                                            
+                                            <input id="submit" name="submit" type='submit' value='Generar Licencia'>
+                                        </div>
+                                    </div>
+                                  </div>
+                            </div>     
+                        </div>                                                   
+                               
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+    {{parent()}}
+
+
+    <script language="javascript" id="includeLicenciajs" data-path-base="{{ url('path_home') }}" src = "{{ asset('js/licencia.js') }}">
+    </script> 
+     <script type="text/javascript"
+            src="{{ asset('jquery-confirm/jquery-confirm.js') }}"></script>
+
+{% endblock %}      
