@@ -2,107 +2,111 @@
 {% set datos_encabezado_title="Licencia Caza y Pesca" %}
 {% set datos_encabezado_entity="Ministerio de la Producción Ciencia y Tecnologia" %}
 {% block css %}
-    {{parent()}}
-    <link rel="stylesheet" href="{{ asset('css/estilos.css') }}"  type="text/css" />
+    {{ parent() }}
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ asset('jquery-confirm/jquery-confirm.css') }}"/>
 {% endblock %}
 
-{% block nav %}
-    {{parent()}}
-    {% block navItems %}
-        {% if  not is_granted('IS_AUTHENTICATED_FULLY')  %}
-            <li class='nav-item'>
-                <a  class="nav-link" href="{{ path('path_home') }}">
-                    <span>Generar Licencia </span>
-                </a>
-            </li>
-            <li class='nav-item'>
-                <a class="nav-link" href="{{ path('reimpresion') }}">
-                    <span>Reimpresion Licencia</span>
-                </a>
-            </li>
-        {% endif %}
+{% block navItems %}
+    {% if  not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class='nav-item'>
+            <a class="nav-link" href="{{ path('path_home') }}">
+                <span>Generar Licencia </span>
+            </a>
+        </li>
+        <li class='nav-item'>
+            <a class="nav-link" href="{{ path('reimpresion') }}">
+                <span>Reimpresion Licencia</span>
+            </a>
+        </li>
+    {% endif %}
 
-        {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_TECNICO')%}
-            <li>
-                <li class="has-sub">
-                    <li class="has-sub"><a href="#"><span>Licencias</span></a>
-                        <ul>
-                            <li><a href="{{path('comprobante')}}" ><span>Comprobantes</span></a></li>
-                            <li><a href="{{path('licencia')}}" ><span>Licencias Generadas</span></a></li>
-                            <li><a href="{{path('index_file_upload')}}" target="_blank"><span>Subir Archivos</span></a></li>
-                            <li><a href="{{path('rendicion')}}"><span>Rendiciones</span></a></li>
-                            <li><a href="{{path('liquidacion')}}"><span>Liquidaciones</span></a></li>
-                        </ul>
-                    </li>
-                </li>
-            </li>
-        {% endif %}
+    {% if  is_granted('ROLE_ADMIN') or is_granted('ROLE_TECNICO') %}
+        <li>
+        <li class="has-sub">
+        <li class="has-sub"><a href="#"><span>Licencias</span></a>
+            <ul>
+                <li><a href="{{ path('comprobante') }}"><span>Comprobantes</span></a></li>
+                <li><a href="{{ path('licencia') }}"><span>Licencias Generadas</span></a></li>
+                <li><a href="{{ path('index_file_upload') }}" target="_blank"><span>Subir Archivos</span></a></li>
+                <li><a href="{{ path('rendicion') }}"><span>Rendiciones</span></a></li>
+                <li><a href="{{ path('liquidacion') }}"><span>Liquidaciones</span></a></li>
+            </ul>
+        </li>
+        </li>
+        </li>
+    {% endif %}
 
-        {% if  is_granted('ROLE_SUPER_ADMIN')  %} {# or not is_granted('IS_AUTHENTICATED_FULLY')#}
-            <li>
-                <li class="has-sub">
-                    <li class="has-sub"><a href="#"><span>Administrar</span></a>
-                        <ul>
-                            <li><a href="{{path('atributoconfiguracion')}}"><span>Parametros</span></a></li>
-                            <li><a href="{{path('numerador')}}"><span>Numerador</span></a></li>
-                            <li><a href="{{path('tipolicencia')}}"><span>Tipos de Licencia</span></a></li>
-                            <li class="last"><a href="{{path('tipodocumento')}}"><span>Tipos de Documento</span></a></li>
-                            <li><a href="{{path('localidad')}}" ><span>Localidades</span></a></li>
-                            <li><a href="{{path('usuario')}}" ><span>Usuarios</span></a></li>
-                            <li><a href="{{path('persona')}}"><span>Personas</span></a></li>
-                        </ul>
-                    </li>
-                </li>
-            </li>
-        {% endif %}
+    {% if  is_granted('ROLE_SUPER_ADMIN') %} {# or not is_granted('IS_AUTHENTICATED_FULLY')#}
+        <li>
+        <li class="has-sub">
+        <li class="has-sub"><a href="#"><span>Administrar</span></a>
+            <ul>
+                <li><a href="{{ path('atributoconfiguracion') }}"><span>Parametros</span></a></li>
+                <li><a href="{{ path('numerador') }}"><span>Numerador</span></a></li>
+                <li><a href="{{ path('tipolicencia') }}"><span>Tipos de Licencia</span></a></li>
+                <li class="last"><a href="{{ path('tipodocumento') }}"><span>Tipos de Documento</span></a></li>
+                <li><a href="{{ path('localidad') }}"><span>Localidades</span></a></li>
+                <li><a href="{{ path('usuario') }}"><span>Usuarios</span></a></li>
+                <li><a href="{{ path('persona') }}"><span>Personas</span></a></li>
+            </ul>
+        </li>
+        </li>
+        </li>
+    {% endif %}
 
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-            <li>
-                <li class="has-sub">
-                    <li class="has-sub"
-                        style="float:right;text-align:right;margin-right: 58px">
-                        <a href="#"><span>Profile</span></a>
-                        <ul>
-                            <li><a href="{{path('atributoconfiguracion')}}"><span>Cambiar Password</span></a></li>
-                            <li><a href="{{ path('fos_user_security_logout') }}"><span>Logout</span></a></li>
-                        </ul>
-                    </li>
-                </li>
-            </li>
-        {% endif %}
+        <li>
+        <li class="has-sub">
+        <li class="has-sub"
+            style="float:right;text-align:right;margin-right: 58px">
+            <a href="#"><span>Profile</span></a>
+            <ul>
+                <li><a href="{{ path('atributoconfiguracion') }}"><span>Cambiar Password</span></a></li>
+                <li><a href="{{ path('fos_user_security_logout') }}"><span>Logout</span></a></li>
+            </ul>
+        </li>
+        </li>
+        </li>
+    {% endif %}
 
-        {% if  not is_granted('IS_AUTHENTICATED_FULLY')  %}
-            <li class='nav-item' style="float:right;text-align:right;">
-                <a class="nav-link" href="{{ path('fos_user_security_login') }}">
-                    <span>Entrar</span>
-                </a>
-            </li>
-        {% endif %}
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li class="icons">
+    {% if  not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class='nav-item' style="float:right;text-align:right;">
+            <a class="nav-link" href="{{ path('fos_user_security_login') }}">
+                <span>Entrar</span>
+            </a>
+        </li>
+    {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="icons">
 
-            </li>
-        {% endif %}
-    {% endblock %}
+        </li>
+    {% endif %}
+{% endblock %}
 
-    {% block searchTop %}
-    {% endblock%}
-    {% block iconsSystem %}
+{% block searchTop %}
+{% endblock %}
+{% block iconsSystem %}
         <ul class="list-inline custom-icon-middle">
-            {% if is_granted('IS_AUTHENTICATED_FULLY')  %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li class="list-inline-item">
                     <a href="" class="dropdown-toggle" id="dropdownMenuLinkPerson" data-toggle="dropdown"
                        aria-haspopup="true"
                        aria-expanded="false" title="Usuario logueado">{{ app.user.username }}<i class="material-icons">person</i></a>
                     <div class="dropdown-menu custom-dropdown-menu-right" aria-labelledby="dropdownMenuLinkPerson">
-                        <a class="dropdown-item {{ macros.current('fos_user_profile_show') }}" href="{{ path('fos_user_profile_show') }}">Perfil</a>
-                        <a class="dropdown-item {{ macros.current('fos_user_profile_edit') }}" href="{{ path('fos_user_profile_edit') }}">Configuración</a>
-                        <a class="dropdown-item {{ macros.current('fos_user_change_password') }}" href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a>
+                        <a class="dropdown-item {{ macros.current('fos_user_profile_show') }}"
+                           href="{{ path('fos_user_profile_show') }}">Perfil</a>
+                        <a class="dropdown-item {{ macros.current('fos_user_profile_edit') }}"
+                           href="{{ path('fos_user_profile_edit') }}">Configuración</a>
+                        <a class="dropdown-item {{ macros.current('fos_user_change_password') }}"
+                           href="{{ path('fos_user_change_password') }}">Cambiar contraseña</a>
                     </div>
                 </li>
                 <li class="list-inline-item">
-                    <a href="{{ path('fos_user_security_logout') }}" title="Salir"><i class="material-icons">exit_to_app</i></a>
+                    <a href="{{ path('fos_user_security_logout') }}" title="Salir"><i
+                                class="material-icons">exit_to_app</i></a>
                 </li>
             {% else %}
                 <li class="list-inline-item">
@@ -110,67 +114,31 @@
                 </li>
             {% endif %}
         </ul>
-    {% endblock %}
-
 {% endblock %}
 
+{% block nav %}
+    {{ parent() }}
+{% endblock %}
+
+{% block cover %}
+{% endblock %}
+
+{% block breadcrumbItems %}
+          <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+{% endblock %}
+{% block breadcrumb %}
+      {{ parent() }}
+{% endblock %}
+
+{% block content %}
+       Contenido
+{% endblock %}
 {% block main %}
-<div class="loader"></div>
-
-    <main role="main" class="container-fluid">
-        <div class="row row-top">
-            <div class="col-lg-12">
-                <h1>{{ datos_encabezado_title | default('Titulo de la aplicación') }}</h1>
-                <p>{{ datos_encabezado_entity | default('Organismo o dependencia') }}</p>
-                {% block cover %}
-                {% endblock %}
-            </div>
-        </div>
-
-        {% block breadcrumb %}
-            <div class="row">
-                <nav aria-label="breadcrumb" role="navigation">
-                    <ol class="breadcrumb">
-                        {% block breadcrumbItems %}
-                            {% if  breadcrumbs is defined and breadcrumbs is not null  %}
-                                {% for b in breadcrumbs %}
-                                    <li class="breadcrumb-item{% if loop.last %} active{% endif %}" aria-current="page">{{ b }}</li>
-                                {% endfor %}
-                            {% endif %}
-                        {% endblock %}
-                    </ol>
-                </nav>
-            </div>
-        {% endblock %}
-
-    {% block bloqueMensaje %}
-        {# Esto es para el mensaje flash. #}
-        {% for flash_message in app.session.flashBag.get(mensaje_reporte) %}
-            <div class="alert alert-success">
-                {{ flash_message }}
-            </div>
-        {% endfor %}
-    {% endblock %}
-
-
-
-
-        <div class="row">
-            <div class="col-lg-12">
-                {% block content %}
-                    Contenido
-                {% endblock %}
-            </div>
-        </div>
-
-        {% block backTop %}
-            {{ parent() }}
-        {% endblock %}
-    </main>
+    {{parent()}}
 {% endblock %}
 
 {% block footer %}
-    {{parent()}}
+    {{ parent() }}
 {% endblock %}
 
 {% block javascript %}
@@ -208,4 +176,12 @@
 
     });
 </script>
+
+<script language="javascript" id="includeLicenciajs"
+ data-path-base="{{ url('path_home') }}" src = "{{ asset('js/licencia.js') }}">
+    </script>
+     <script type="text/javascript"
+            src="{{ asset('jquery-confirm/jquery-confirm.js') }}"></script>
+
+
 {% endblock %}

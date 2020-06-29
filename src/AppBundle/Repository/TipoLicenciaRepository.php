@@ -3,6 +3,8 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\TipoLicencia;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -10,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  * TipoLicenciaRepository
  *
  */
-final class TipoLicenciaRepository
+final class TipoLicenciaRepository extends ServiceEntityRepository
 {
     /**
      * @var EntityRepository
@@ -21,17 +23,11 @@ final class TipoLicenciaRepository
      */
     private $entityManager;
     
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(ManagerRegistry $managerRegistry)
     {
-        $this->repository = $entityManager->getRepository(TipoLicencia::class);
-        $this->entityManager = $entityManager;
+        parent::__construct($managerRegistry, TipoLicencia::class);
     }
     
-    public function save(TipoLicencia $tipoLicencia)
-    {
-        $this->entityManager->persist($tipoLicencia);
-        $this->entityManager->flush();
-    }    
 
     public function findById($id){
         return $this->repository->find($id);

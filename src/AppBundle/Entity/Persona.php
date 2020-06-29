@@ -357,7 +357,7 @@ class Persona
     /**
      * @return mixed
      */
-    public function gettipoDocumento()
+    public function getTipoDocumento()
     {
         return $this->tipoDocumento;
     }

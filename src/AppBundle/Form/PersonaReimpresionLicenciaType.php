@@ -26,7 +26,7 @@ class PersonaReimpresionLicenciaType extends AbstractType
                         'label' => 'Tipo Documento',
                         'class' => 'AppBundle\Entity\TipoDocumento',
                         'required' => true,
-                        'empty_value' => '-- Seleccione --',
+                        'empty_data' => '-- Seleccione --',
                         'query_builder' => function (EntityRepository $er) {        
                             return $er->createQueryBuilder('td')->where('td.fechaBaja is null')->orderBy('td.tipo', 'ASC');     
                          },

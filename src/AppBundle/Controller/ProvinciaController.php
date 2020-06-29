@@ -13,23 +13,43 @@ use AppBundle\Service\TipoLicenciaServiceImpl;
 use AppBundle\Entity\Provincia;
 
 class ProvinciaController extends Controller
-{    
+{
+    /**
+     * @var ProvinciaServiceImpl
+     */
+    private $provinciaServiceImpl;
+    /**
+     * @var JsonServiceImpl
+     */
+    private $jsonServiceImpl;
+    /**
+     * @var TipoLicenciaServiceImpl
+     */
+    private $tipoLicenciaServiceImpl;
+    
+    public function __construct(ProvinciaServiceImpl $provinciaServiceImpl,
+                                TipoLicenciaServiceImpl $tipoLicenciaServiceImpl,
+                                JsonServiceImpl $jsonServiceImpl)
+    {
+        $this->provinciaServiceImpl = $provinciaServiceImpl;
+        $this->jsonServiceImpl = $jsonServiceImpl;
+        $this->tipoLicenciaServiceImpl = $tipoLicenciaServiceImpl;
+    }
+    
     public function findByAction(Request $request) {
         $this->get('logger')->info("Entro en ProvinciaController findByAction ");
 
         $data = json_decode($request->getContent());
         
         /** @var ProvinciaServiceImpl $provinciaService */
-        $provinciaService = $this->get('provincia_service');
-        $provincia = $provinciaService
+        $provincia = $this->provinciaServiceImpl
                             ->findByProvinciaIdAndProvinciaNombre($data->provinciaId,
                                                                             $data->provinciaNombre);
 
         /** @var JsonServiceImpl $jsonService */
-        $jsonService = $this->get('json_service');          
-        $jsonService->setArrayIgnoredAttributes(array('licencias'));
+        $this->jsonServiceImpl->setArrayIgnoredAttributes(array('licencias'));
 
-        $provinciaJson = $jsonService->transformToJson($provincia);
+        $provinciaJson = $this->jsonServiceImpl->transformToJson($provincia);
                      
 
         $this->get('logger')->info("Provincia: ".$provinciaJson);  
@@ -46,15 +66,12 @@ class ProvinciaController extends Controller
         $provincia = $provincia->copyValues(json_decode($data->provincia));
 
         /** @var TipoLicenciaServiceImpl $tipoLicenciaService */
-        $tipoLicenciaService = $this->get('tipo_licencia_service');
-        $tiposLicencia = $tipoLicenciaService
+        $tiposLicencia = $this->tipoLicenciaServiceImpl
                             ->findTiposLicenciaForProvincia($provincia);
 
         /** @var JsonServiceImpl $jsonService */
-        $jsonService = $this->get('json_service');          
-        //$jsonService->setArrayIgnoredAttributes(array('licencias'));
 
-        $tiposLicenciaJson = $jsonService->transformToJson($tiposLicencia);
+        $tiposLicenciaJson = $this->jsonServiceImpl->transformToJson($tiposLicencia);
                      
 
         $this->get('logger')->info("Tipos Licencia Encontrados  : ".$tiposLicenciaJson);  

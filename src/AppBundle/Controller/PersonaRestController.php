@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Persona;
 use AppBundle\Exception\SimpleMessageException;
+use AppBundle\Service\PersonaServiceImpl;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,23 +13,38 @@ use AppBundle\Service\JsonServiceImpl;
 
 class PersonaRestController extends Controller
 {
-
+    /**
+     * @var PersonaServiceImpl
+     */
+    private $personaServiceImpl;
+    /**
+     * @var JsonServiceImpl
+     */
+    private $jsonServiceImpl;
+    
+    public function __construct(PersonaServiceImpl $personaServiceImpl,
+                                JsonServiceImpl $jsonServiceImpl)
+    {
+        $this->personaServiceImpl = $personaServiceImpl;
+        $this->jsonServiceImpl = $jsonServiceImpl;
+    }
+    
     public function findByAction(Request $request) {
         
         $this->get('logger')->info("Entro en PersonaRestController findByAction ");
     
         $data = json_decode($request->getContent());
-        $personaService = $this->get('persona_service');
-        $persona = $personaService
+        
+        $persona = $this->personaServiceImpl
                             ->findBySexoAndTipoDocumentoAndNumeroDocumento($data->sexo,
                                 $data->tipoDocumento,
                                 $data->numeroDocumento);
 
         /** @var JsonServiceImpl $jsonService */
-        $jsonService = $this->get('json_service');
-        $jsonService->setArrayIgnoredAttributes(array('licencias'));
+       
+       $this->jsonServiceImpl->setArrayIgnoredAttributes(array('licencias'));
 
-        $personaJson = $jsonService->transformToJson($persona);
+        $personaJson = $this->jsonServiceImpl->transformToJson($persona);
 
 
         $this->get('logger')->info("Devuelvo PersonaJson");

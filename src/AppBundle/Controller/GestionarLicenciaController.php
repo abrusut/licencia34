@@ -11,6 +11,7 @@ use AppBundle\Service\EncryptImpl;
 use AppBundle\Service\LicenciaServiceImpl;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\GestionarLicenciaType;
 
 class GestionarLicenciaController extends Controller
 {
@@ -69,7 +70,10 @@ class GestionarLicenciaController extends Controller
                     ->getAtributoConfiguracion('licencia_texto_ayudageneral');
         
         $licencia = new Licencia();
-        $form = $this->createForm('AppBundle\Form\LicenciaType', $licencia);
+        $form = $this
+            ->container
+            ->get('form.factory')
+            ->create('AppBundle\Form\GestionarLicenciaType', $licencia);
 
         $form->handleRequest($request);
 
