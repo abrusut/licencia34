@@ -6,6 +6,13 @@
     <link rel="stylesheet"
           type="text/css"
           href="{{ asset('jquery-confirm/jquery-confirm.css') }}"/>
+
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ asset('css/jquery-ui.css') }}"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 {% endblock %}
 
 {% block navItems %}
@@ -142,7 +149,7 @@
 {% endblock %}
 
 {% block javascript %}
-{{parent()}}
+{{ parent() }}
 
   <script language = "javascript"  src = "{{ asset('js/utils.js') }}"></script>
     <script>
@@ -167,12 +174,6 @@
             format: 'mm-dd-yyyy'
         });
 
-        $(function () {
-            $("#accordion").accordion({
-                heightStyle: "content",
-                collapsible: true
-            });
-        });
 
     });
 </script>
@@ -183,5 +184,6 @@
      <script type="text/javascript"
             src="{{ asset('jquery-confirm/jquery-confirm.js') }}"></script>
 
-
+      <script type="text/javascript"
+            src="{{ asset('js/jquery-ui.js') }}"></script>
 {% endblock %}

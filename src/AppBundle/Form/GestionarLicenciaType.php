@@ -31,13 +31,12 @@ class GestionarLicenciaType extends AbstractType
                                     $options['data']->getFechaEmitida() !== null) ? $options['data']->getFechaEmitida() : new \DateTime(),
                      // render as a single text box
                      'widget' => 'single_text',
-                     //'format' => 'dd/MM/yyyy',
+                     'format' => 'dd/MM/yyyy',
                      // do not render as type="date", to avoid HTML5 date pickers
                     // 'html5' => false,
                      // add a class that can be selected in JavaScript
-                     //'attr' => ['class' => 'js-datepicker disabledPanel'],
-                     'disabled' => TRUE,
-                     //'read_only' => TRUE
+                     'attr' => ['class' => 'js-datepicker disabledPanel'],
+                     'disabled' => TRUE
                     )
                 )
                 ->add('fechaDesde',DateType::class, array(
@@ -47,11 +46,11 @@ class GestionarLicenciaType extends AbstractType
                                     $options['data']->getFechaDesde() !== null) ? $options['data']->getFechaDesde() : new \DateTime(),
                      // render as a single text box
                      'widget' => 'single_text',
-                    // 'format' => 'dd/MM/yyyy',
+                    'format' => 'dd/MM/yyyy',
                      // do not render as type="date", to avoid HTML5 date pickers
-                     //'html5' => false,
+                     'html5' => false,
                      // add a class that can be selected in JavaScript
-                     //'attr' => ['class' => 'js-datepicker']
+                     'attr' => ['class' => 'js-datepicker']
                     )
                 )
             ->add('persona',  PersonaLicenciaType::class)

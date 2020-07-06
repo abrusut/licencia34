@@ -79,6 +79,6 @@ function getDateWithFormat(format = 'dd/mm/yyyy', separador = "/",date = new Dat
                                 currentDateTime.getMinutes() + ":" + 
                                 currentDateTime.getSeconds()         
     }
-    
+    console.log("desde ",formattedDate);
     return formattedDate;
 }

@@ -1,367 +1,363 @@
-{% extends "AppBundle:Page:index.html.twig" %} {% block cuerpo %}
+{% extends "Page/base.html.twig" %}
 
- {% block css %}                 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-                  rel="stylesheet">
 
-    <link rel="icon" href="//www.santafe.gob.ar/assets/standard/images/favicon.ico">
+  {% block css %}
+    {{ parent() }}
+
   {% endblock %}
 
+  {% block breadcrumbItems %}
+    {{ parent() }}
+    <li class="breadcrumb-item"><a href="#">Detalle de Licencia Generada</a></li>
+  {% endblock %}
+
+
+
+  {% block cardHeader %}
+    {% if urlBoletaPago is defined and
+          urlBoletaPago is not empty %}
+      <div class="row elevencol">
+         <button  onclick="imprimirBoletaPago('{{ urlBoletaPago }}')" class="btn float-right">
+            <i class="material-icons" style="font-size: 30px">print</i>
+        </button>
+      </div>
+       <div class="row"></div>
+    {% endif %}
+  {% endblock %}
+{% block content %}
   {% if app.session.flashBag.has('licenciaForm_message') %}
-  <div class="alert alert-success">
-    {% for msg in app.session.flashBag.get('licenciaForm_message') %}
-    {{ msg }}
-    {% endfor %}
-  </div>
-  {% endif %}
-
-<div class="row"></div>
-
-{% block breadcrumb %} {% set breadoption = { 'Inicio': 'path_home', 'Detalle de
-Licencia Generada': '#'} %}
-{{ parent() }}
-{% endblock %} 
-
-{% block cardHeader %} 
-  {% if urlBoletaPago is defined and
-        urlBoletaPago is not empty %}
-    <div class="row elevencol">      
-       <button  onclick="imprimirBoletaPago('{{ urlBoletaPago }}')" class="btn float-right">
-          <i class="material-icons" style="font-size: 30px">print</i>
-      </button>
+    <div class="alert alert-success">
+      {% for msg in app.session.flashBag.get('licenciaForm_message') %}
+        {{ msg }}
+      {% endfor %}
     </div>
-     <div class="row"></div>
   {% endif %}
-{% endblock %}
 
-<div class="row form">
-  <div class="col-lg-12">
-    <div class="card bg-light mb-12">
-      {% block cardBody %}
-     <form>
-        <div id="mprod_licenciacypbundle_licencia_readOnly" readonly="readonly">
-          <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
-                  
-                  >Numero Licencia</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_numero"
-                  name="mprod_licenciacypbundle_licencia_readOnly[numero]"
-                  readonly="readonly"
-                  required="required"                  
-                  value="{{licencia.numero}}"
-                />
-              </div>
-          <div>
-            <label
-              for="mprod_licenciacypbundle_licencia_readOnly_tipoLicencia"
-              
-              >Tipo Licencia</label
-            ><input
-                  type="text" readonly
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][telefono]"
-                  readonly="readonly"
-                  placeholder="3420000000"
-                  value="{{licencia.tipoLicencia.descripcion}}"
-                />
-          </div>
-          <div>
-            <label
-              for="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
-              
-              >Fecha emitida</label
-            ><input
-              type="text"
-              id="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
-              name="mprod_licenciacypbundle_licencia_readOnly[fechaEmitida]"
-              readonly="readonly"
-              required="required"                            
-              value="{{licencia.fechaEmitida |date("d/m/Y")}}"
-            />
-          </div>
-          <div>
-            <label
-              for="mprod_licenciacypbundle_licencia_readOnly_fechaDesde"
-              
-              >Fecha desde</label
-            ><input
-              type="text"
-              id="mprod_licenciacypbundle_licencia_readOnly_fechaDesde"
-              name="mprod_licenciacypbundle_licencia_readOnly[fechaDesde]"
-              readonly="readonly"
-              required="required"                            
-              value="{{licencia.fechaDesde |date("d/m/Y")}}"
-            />
-          </div>
-          <div>
-            <label
-              for="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
-              
-              >Fecha Hasta</label
-            ><input
-              type="text"
-              id="mprod_licenciacypbundle_licencia_readOnly_fechaVencimiento"
-              name="mprod_licenciacypbundle_licencia_readOnly[fechaVencimiento]"
-              readonly="readonly"
-              required="required"                                       
-              value="{{licencia.fechaVencimiento |date("d/m/Y")}}"
-            />
-          </div>
-          <div>
-            <label >Persona</label>
-            <div
-              id="mprod_licenciacypbundle_licencia_readOnly_persona"
-              readonly="readonly"
-              disabled="disabled"
-            >              
+<form>
+    <div class="row form">
+      <div class="col-lg-12">
+        <div class="card bg-light mb-12">
+
+            <div id="mprod_licenciacypbundle_licencia_readOnly" readonly="readonly">
+              <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
+
+                      >Numero Licencia</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_numero"
+                      name="mprod_licenciacypbundle_licencia_readOnly[numero]"
+                      readonly="readonly"
+                      required="required"
+                      value="{{licencia.numero}}"
+                    />
+                  </div>
               <div>
                 <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_nombre"
-                  
-                  >Nombre</label
+                  for="mprod_licenciacypbundle_licencia_readOnly_tipoLicencia"
+
+                  >Tipo Licencia</label
+                ><input
+                      type="text" readonly
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][telefono]"
+                      readonly="readonly"
+                      placeholder="3420000000"
+                      value="{{licencia.tipoLicencia.descripcion}}"
+                    />
+              </div>
+              <div>
+                <label
+                  for="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
+
+                  >Fecha emitida</label
                 ><input
                   type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_nombre"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][nombre]"
+                  id="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
+                  name="mprod_licenciacypbundle_licencia_readOnly[fechaEmitida]"
                   readonly="readonly"
                   required="required"
-                  maxlength="60"
-                  pattern=".{3,}"
-                  value="{{licencia.persona.nombre}}"
+                  value="{{licencia.fechaEmitida |date("d/m/Y")}}"
                 />
               </div>
               <div>
                 <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
-                  
-                  >Apellido</label
+                  for="mprod_licenciacypbundle_licencia_readOnly_fechaDesde"
+
+                  >Fecha desde</label
                 ><input
                   type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][apellido]"
+                  id="mprod_licenciacypbundle_licencia_readOnly_fechaDesde"
+                  name="mprod_licenciacypbundle_licencia_readOnly[fechaDesde]"
                   readonly="readonly"
                   required="required"
-                  maxlength="60"
-                  pattern=".{3,}"
-                  value="{{licencia.persona.apellido}}"
+                  value="{{licencia.fechaDesde |date("d/m/Y")}}"
                 />
               </div>
               <div>
                 <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_fechaNacimiento"
-                  >Fecha de Nacimiento</label
+                  for="mprod_licenciacypbundle_licencia_readOnly_fechaEmitida"
+
+                  >Fecha Hasta</label
                 ><input
                   type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_fechaNacimiento"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][fechaNacimiento]"
-                  readonly="readonly"                  
-                  value="{{licencia.persona.fechaNacimiento |date("d/m/Y")}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_tipoDocumento"
-                  >Tipo Documento</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_tipoDocumento.descripcion"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][tipoDocumento.descripcion]"
-                  readonly="readonly"                  
-                  value="{{licencia.persona.tipoDocumento.tipo}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_numeroDocumento"
-                  
-                  >Número de Documento</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_numeroDocumento"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][numeroDocumento]"
+                  id="mprod_licenciacypbundle_licencia_readOnly_fechaVencimiento"
+                  name="mprod_licenciacypbundle_licencia_readOnly[fechaVencimiento]"
                   readonly="readonly"
                   required="required"
-                  placeholder="99999999"
-                  value="{{licencia.persona.numeroDocumento}}"
+                  value="{{licencia.fechaVencimiento |date("d/m/Y")}}"
                 />
               </div>
               <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioCalle"
-                  
-                  >Domicilio calle</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioCalle"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][domicilioCalle]"
-                  readonly="readonly"
-                  required="required"
-                  maxlength="60"
-                  pattern=".{3,}"                  
-                  value="{{licencia.persona.domicilioCalle}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioNumero"
-                  >Domicilio numero</label
-                ><input
-                  type="number"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioNumero"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][domicilioNumero]"
-                  readonly="readonly"
-                  value="{{licencia.persona.domicilioNumero}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
-                  >Sexo</label
-                >
-                {% if licencia.persona.sexo == 'm' %}
-                  <input
-                    type="text"
-                    id="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
-                    name="mprod_licenciacypbundle_licencia_readOnly[persona][sexo]"
-                    readonly="readonly"
-                    value="Masculino"
-                  />
-                {% else %}
-                   <input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][sexo]"
-                  readonly="readonly"
-                  value="Femenino"
-                  />
-                {% endif %}
-              </div>
-              <div>
-                <label >Jubilado </label>
+                <label >Persona</label>
                 <div
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_jubilado"
+                  id="mprod_licenciacypbundle_licencia_readOnly_persona"
                   readonly="readonly"
+                  disabled="disabled"
                 >
-                  
-                 {% if licencia.persona.jubilado == true %}                
-                      <input
-                          type="text"
-                          id="mprod_licenciacypbundle_licencia_readOnly_persona_jubiladoSi"
-                          name="mprod_licenciacypbundle_licencia_readOnly[persona][jubiladoSi]"
-                          readonly="readonly"
-                          value="SI"
-                          />
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_nombre"
 
+                      >Nombre</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_nombre"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][nombre]"
+                      readonly="readonly"
+                      required="required"
+                      maxlength="60"
+                      pattern=".{3,}"
+                      value="{{licencia.persona.nombre}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
+
+                      >Apellido</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_apellido"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][apellido]"
+                      readonly="readonly"
+                      required="required"
+                      maxlength="60"
+                      pattern=".{3,}"
+                      value="{{licencia.persona.apellido}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_fechaNacimiento"
+                      >Fecha de Nacimiento</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_fechaNacimiento"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][fechaNacimiento]"
+                      readonly="readonly"
+                      value="{{licencia.persona.fechaNacimiento |date("d/m/Y")}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_tipoDocumento"
+                      >Tipo Documento</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_tipoDocumento.descripcion"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][tipoDocumento.descripcion]"
+                      readonly="readonly"
+                      value="{{licencia.persona.tipoDocumento.tipo}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_numeroDocumento"
+
+                      >Número de Documento</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_numeroDocumento"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][numeroDocumento]"
+                      readonly="readonly"
+                      required="required"
+                      placeholder="99999999"
+                      value="{{licencia.persona.numeroDocumento}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioCalle"
+
+                      >Domicilio calle</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioCalle"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][domicilioCalle]"
+                      readonly="readonly"
+                      required="required"
+                      maxlength="60"
+                      pattern=".{3,}"
+                      value="{{licencia.persona.domicilioCalle}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioNumero"
+                      >Domicilio numero</label
+                    ><input
+                      type="number"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_domicilioNumero"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][domicilioNumero]"
+                      readonly="readonly"
+                      value="{{licencia.persona.domicilioNumero}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
+                      >Sexo</label
+                    >
+                    {% if licencia.persona.sexo == 'm' %}
+                      <input
+                        type="text"
+                        id="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
+                        name="mprod_licenciacypbundle_licencia_readOnly[persona][sexo]"
+                        readonly="readonly"
+                        value="Masculino"
+                      />
                     {% else %}
+                       <input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_sexo"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][sexo]"
+                      readonly="readonly"
+                      value="Femenino"
+                      />
+                    {% endif %}
+                  </div>
+                  <div>
+                    <label >Jubilado </label>
+                    <div
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_jubilado"
+                      readonly="readonly"
+                    >
+
+                     {% if licencia.persona.jubilado == true %}
+                          <input
+                              type="text"
+                              id="mprod_licenciacypbundle_licencia_readOnly_persona_jubiladoSi"
+                              name="mprod_licenciacypbundle_licencia_readOnly[persona][jubiladoSi]"
+                              readonly="readonly"
+                              value="SI"
+                              />
+
+                        {% else %}
+                        <input
+                              type="text"
+                              id="mprod_licenciacypbundle_licencia_readOnly_persona_jubiladoNO"
+                              name="mprod_licenciacypbundle_licencia_readOnly[persona][jubiladoNO]"
+                              readonly="readonly"
+                              value="NO"
+                              />
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
+                      >Teléfono</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][telefono]"
+                      readonly="readonly"
+                      placeholder="3420000000"
+                      value="{{licencia.persona.telefono}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_email"
+
+                      >Email</label
+                    ><input
+                      type="email"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
+                      readonly="readonly"
+                      required="required"
+                      value="{{licencia.persona.email}}"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_provincia"
+                      >Provincia</label
+                    > <input
+                      type="email"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
+                      readonly="readonly"
+                      required="required"
+                      value="{{licencia.persona.provincia}}"
+                    />
+                  </div>
+                   {% if licencia.persona.localidad is not null %}
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_localidad"
+
+                      >Localidad</label
+                    >
                     <input
-                          type="text"
-                          id="mprod_licenciacypbundle_licencia_readOnly_persona_jubiladoNO"
-                          name="mprod_licenciacypbundle_licencia_readOnly[persona][jubiladoNO]"
-                          readonly="readonly"
-                          value="NO"
-                          />
+                      type="email"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
+                      readonly="readonly"
+                      required="required"
+                      value="{{licencia.persona.localidad}}"
+                    />
+                  </div>
+                  {% endif %}
+
+                  {% if licencia.persona.localidad is null and licencia.persona.localidadOtraProvincia is not null %}
+                  <div>
+                    <label
+                      for="mprod_licenciacypbundle_licencia_readOnly_persona_localidadOtraProvincia"
+                      >Localidad Otra Provincia</label
+                    ><input
+                      type="text"
+                      id="mprod_licenciacypbundle_licencia_readOnly_persona_localidadOtraProvincia"
+                      name="mprod_licenciacypbundle_licencia_readOnly[persona][localidadOtraProvincia]"
+                      readonly="readonly"
+                      value="{{licencia.persona.localidadOtraProvincia}}"
+                    />
+                  </div>
                   {% endif %}
                 </div>
               </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
-                  >Teléfono</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_telefono"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][telefono]"
-                  readonly="readonly"
-                  placeholder="3420000000"
-                  value="{{licencia.persona.telefono}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_email"
-                  
-                  >Email</label
-                ><input
-                  type="email"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
-                  readonly="readonly"
-                  required="required"
-                  value="{{licencia.persona.email}}"
-                />
-              </div>
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_provincia"
-                  >Provincia</label
-                > <input
-                  type="email"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
-                  readonly="readonly"
-                  required="required"
-                  value="{{licencia.persona.provincia}}"
-                />
-              </div>
-               {% if licencia.persona.localidad is not null %}      
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_localidad"
-                  
-                  >Localidad</label                
-                >
-                <input
-                  type="email"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_email"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][email]"
-                  readonly="readonly"
-                  required="required"
-                  value="{{licencia.persona.localidad}}"
-                />
-              </div>
-              {% endif %}
-             
-              {% if licencia.persona.localidad is null and licencia.persona.localidadOtraProvincia is not null %}
-              <div>
-                <label
-                  for="mprod_licenciacypbundle_licencia_readOnly_persona_localidadOtraProvincia"
-                  >Localidad Otra Provincia</label
-                ><input
-                  type="text"
-                  id="mprod_licenciacypbundle_licencia_readOnly_persona_localidadOtraProvincia"
-                  name="mprod_licenciacypbundle_licencia_readOnly[persona][localidadOtraProvincia]"
-                  readonly="readonly"
-                  value="{{licencia.persona.localidadOtraProvincia}}"
-                />
-              </div>
-              {% endif %}
-            </div>
-          </div>         
-</form>
-      
-      {% endblock %}
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
+</form>
 
+{% endblock %}
 
-</div>
-
-{% endblock %} 
-{% block javascripts %}
+{% block javascript %}
 {{ parent() }}
 
 <script language="javascript" src="{{ asset('js/licencia.js') }}"></script>
 <script language="javascript">
- 
+
 $(document).ready(function()
         {
-            setTimeout(function(){ 
+            setTimeout(function(){
               window.open("{{ urlBoletaPago }}",'_blank')
             }, 3000);
         });
 </script>
 {% endblock %}
+
