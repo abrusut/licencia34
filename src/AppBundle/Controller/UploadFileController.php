@@ -2,26 +2,22 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
-
-use AppBundle\Entity\Rendicion;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use AppBundle\Entity\FileRendicionLiquidacion;
-use AppBundle\Form\FileRendicionLiquidacionType;
-use AppBundle\Service\JsonServiceImpl;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\FileBag;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use AppBundle\Entity\Rendicion;
 use AppBundle\Exception\SimpleMessageException;
-use AppBundle\Service\FileUploaderServiceImpl;
-use AppBundle\Service\FileCsvReaderServiceImpl;
 use AppBundle\Service\ComprobanteServiceImpl;
+use AppBundle\Service\FileCsvReaderServiceImpl;
+use AppBundle\Service\FileUploaderServiceImpl;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\FileBag;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 /**
  * Rendicion controller.

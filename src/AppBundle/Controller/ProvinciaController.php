@@ -2,15 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Persona;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Form\PersonaType;
+use AppBundle\Entity\Provincia;
 use AppBundle\Service\JsonServiceImpl;
 use AppBundle\Service\ProvinciaServiceImpl;
 use AppBundle\Service\TipoLicenciaServiceImpl;
-use AppBundle\Entity\Provincia;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProvinciaController extends Controller
 {

@@ -58,7 +58,7 @@ class PersonaLicenciaType extends AbstractType
                         'placeholder' => '-- Seleccione --',
                     ))
             ->add('jubilado', ChoiceType::class,
-                     array('choices' => array(1 => 'Si', 0 => 'No'),
+                     array('choices' => array('SI' => 1, 'NO' => 0),
                            'required' => true,
                            'multiple' => false,
                            'expanded' => true                           

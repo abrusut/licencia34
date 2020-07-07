@@ -21,15 +21,14 @@ class ReimpresionLicenciaType extends AbstractType
             ->add('tipoLicencia', EntityType::class, array(
                 'class' => 'AppBundle\Entity\TipoLicencia',
                 'choice_label' => 'descripcion',
-                'placeholder' => 'Seleccione un tipo de Licencia',
-                'empty_value' => '-- Seleccione --',
+                'placeholder' => '-- Seleccione --',
                 'empty_data' => null,
                 'required' => true,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('tl')->where('tl.isActive =1')->orderBy('tl.descripcion', 'ASC');
                 }
             ))
-            ->add('persona',  new PersonaReimpresionLicenciaType());
+            ->add('persona', PersonaReimpresionLicenciaType::class);
                         
 
             $builder->setMethod("GET");

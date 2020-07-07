@@ -1,6 +1,4 @@
 $( document ).ready(function() {
-    
-
     $('.loading').hide();
     configureSteps();   
     
@@ -180,7 +178,8 @@ function step2()
 }
 
 function step3()
-{    
+{
+    $('div.setup-panel #step-3').trigger('click');
     $('#divTerminosYCondiciones').hide();
     $('#divBusquedaPersona').hide(); 
     $('#divFormularioLicencia').show();       

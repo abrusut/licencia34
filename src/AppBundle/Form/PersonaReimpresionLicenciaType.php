@@ -3,6 +3,8 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -21,24 +23,25 @@ class PersonaReimpresionLicenciaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder            
-            ->add('tipoDocumento', 'entity', 
+            ->add('tipoDocumento', EntityType::class,
                     array(
                         'label' => 'Tipo Documento',
                         'class' => 'AppBundle\Entity\TipoDocumento',
                         'required' => true,
-                        'empty_data' => '-- Seleccione --',
+                        'empty_data' => null,
                         'query_builder' => function (EntityRepository $er) {        
                             return $er->createQueryBuilder('td')->where('td.fechaBaja is null')->orderBy('td.tipo', 'ASC');     
                          },
                     ))            
-            ->add('numeroDocumento', 'text', 
+            ->add('numeroDocumento', TextType::class,
                     array('label' => 'Número de Documento','required' => true, 
                             'attr'=>array('placeholder'=>'9999999', 'minlength'=>'6')))          
-            ->add('sexo', 'choice', 
+            ->add('sexo', ChoiceType::class,
                 array(
-                        'choices' => array('m' => 'Masculino', 'f' => 'Femenino'), 
+                        'choices' => array('Masculino' => 'm', 'Femenino' => 'f'),
                         'required' => true,
-                        'empty_value' => '-- Seleccione --',
+                        'empty_data' => null,
+                        'placeholder' => '-- Seleccione --',
                 ));           
         
             

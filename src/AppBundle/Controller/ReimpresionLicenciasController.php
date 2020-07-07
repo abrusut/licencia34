@@ -2,16 +2,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Symfony\Component\HttpFoundation\Request;
-
+use AppBundle\Service\LicenciaServiceImpl;
+use AppBundle\Service\PersonaServiceImpl;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+use Pagerfanta\View\TwitterBootstrap3View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Pagerfanta\Pagerfanta;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\View\TwitterBootstrap3View;
-use AppBundle\Form\ReimpresionLicenciaType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * ReimpresionLicenciasController controller.
@@ -20,6 +19,22 @@ use AppBundle\Form\ReimpresionLicenciaType;
  */
 class ReimpresionLicenciasController extends Controller
 {
+
+    /**
+     * @var PersonaServiceImpl
+     */
+    private $personaServiceImpl;
+    /**
+     * @var LicenciaServiceImpl
+     */
+    private $licenciaServiceImpl;
+
+    public function __construct(PersonaServiceImpl $personaServiceImpl, LicenciaServiceImpl $licenciaServiceImpl)
+    {
+        $this->personaServiceImpl = $personaServiceImpl;
+        $this->licenciaServiceImpl = $licenciaServiceImpl;
+    }
+
     /**
      * @Route("/", name="reimpresion")
      * @Method("GET")
@@ -45,35 +60,31 @@ class ReimpresionLicenciasController extends Controller
                 // Save filter to session
                 $filterData = $filterForm->getData();
                 $session->set('ReimpresionLicenciaType', $filterData);
-               }
 
-            $tipoLicencia=$filterData['tipoLicencia']; 
-            $personaRequest=$filterData['persona'];
-            
-            
-            if(!is_null($personaRequest)){
-                    $sexo=$personaRequest->getSexo();
-                    $tipoDocumento=$personaRequest->getTipoDocumento();
-                    $numeroDocumento=$personaRequest->getNumeroDocumento();
+                $tipoLicencia = $filterData['tipoLicencia'];
+                $personaRequest = $filterData['persona'];
 
-                    $persona = $this->get('persona_service')
-                       ->findBySexoAndTipoDocumentoAndNumeroDocumento(
+                if (!is_null($personaRequest)) {
+                    $sexo = $personaRequest['sexo'];
+                    $tipoDocumento = $personaRequest['tipoDocumento'];
+                    $numeroDocumento = $personaRequest['numeroDocumento'];
+
+                    $persona = $this->personaServiceImpl
+                        ->findBySexoAndTipoDocumentoAndNumeroDocumento(
                             $sexo,
                             $tipoDocumento,
                             $numeroDocumento
                         );
-                    if(!is_null($persona)){
-                            $query = $this->get('licencia_service')
-                                ->getQueryByPersonaAndTipoLicencia($persona,$tipoLicencia);
-                            list($licencias, $pagerHtml) = $this->paginator($query, $request);
+                    if (!is_null($persona)) {
+                        $query = $this->licenciaServiceImpl
+                            ->getQueryByPersonaAndTipoLicencia($persona, $tipoLicencia);
+                        list($licencias, $pagerHtml) = $this->paginator($query, $request);
                     }
+                }
             }
-            
-           
         }
 
-               
-        return $this->render('AppBundle:ReimpresionLicencias:index.html.twig', array(
+        return $this->render('ReimpresionLicencias/index.html.twig', array(
             'licencias' => $licencias,
             'pagerHtml' => $pagerHtml,
             'filterForm' => $filterForm->createView()            

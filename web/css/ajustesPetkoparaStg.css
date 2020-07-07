@@ -5,12 +5,3 @@
     background-color: #e4e5e6 !important;
 }    
 
-#footer {
-    position:absolute;
-     bottom:0;
-     left: 0;
-     right: 0;
-     height:60px;   
-     background:#6cf;
-     /* get rid of min-width */
-   }

@@ -2,14 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\View\TwitterBootstrap3View;
-
 use AppBundle\Entity\Licencia;
 use AppBundle\Service\PersonaServiceImpl;
 use AppBundle\Service\LicenciaServiceImpl;
@@ -21,6 +20,22 @@ use AppBundle\Service\LicenciaServiceImpl;
  */
 class LicenciaController extends Controller
 {
+
+    /**
+     * @var LicenciaServiceImpl
+     */
+    private $licenciaServiceImpl;
+    /**
+     * @var PersonaServiceImpl
+     */
+    private $personaServiceImpl;
+
+    public function __construct(LicenciaServiceImpl $licenciaServiceImpl, PersonaServiceImpl $personaServiceImpl)
+    {
+        $this->licenciaServiceImpl = $licenciaServiceImpl;
+        $this->personaServiceImpl = $personaServiceImpl;
+    }
+
     /**
      * Lists all Licencia entities.
      *
@@ -282,38 +297,23 @@ class LicenciaController extends Controller
     }
     
     public function getTotalLicenciasImpagas(){
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-        return $licenciaService->getTotalLicenciasImpagas();
-        
+        return $this->licenciaServiceImpl->getTotalLicenciasImpagas();
     }
+
     public function getTotalLicenciasPagas(){
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-        return $licenciaService->getTotalLicenciasPagas();
-        
+        return $this->licenciaServiceImpl->getTotalLicenciasPagas();
     }
 
     public function getTotalLicenciasGratuitas(){
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-        return $licenciaService->getTotalLicenciasGratuitas();
-        
+        return $this->licenciaServiceImpl->getTotalLicenciasGratuitas();
     }
-    
 
     public function getTotalPersonas(){
-        /** @var PersonaServiceImpl $personaService */
-        $personaService = $this->get('persona_service');
-        return $personaService->getTotalPersonas();
+        return $this->personaServiceImpl->getTotalPersonas();
     }
 
-
     public function getTotalArancelesCobrados(){
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-        return $licenciaService->getTotalArancelesCobrados();
-        
+        return $this->licenciaServiceImpl->getTotalArancelesCobrados();
     }
 
     

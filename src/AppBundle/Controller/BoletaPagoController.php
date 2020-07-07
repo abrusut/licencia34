@@ -16,6 +16,21 @@ use AppBundle\Twig\BarcodeTwigExtension;
 
 class BoletaPagoController extends Controller
 {
+    /**
+     * @var LicenciaServiceImpl
+     */
+    private $licenciaServiceImpl;
+    /**
+     * @var Barcode
+     */
+    private $barcode;
+
+    public function __construct(LicenciaServiceImpl $licenciaServiceImpl, Barcode $barcode )
+    {
+        $this->licenciaServiceImpl = $licenciaServiceImpl;
+        $this->barcode = $barcode;
+    }
+
     public function imprimirHtmlAction(Request $request, $licenciaId)
     {
         $this->get('logger')->info("BoletaPagoController, imprimirHtmlAction, licencia " . $licenciaId);
@@ -23,13 +38,8 @@ class BoletaPagoController extends Controller
         $impresion = $request->query->get('impresion');
 
         $idLicencia = urldecode($licenciaId);
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
 
-        $licencia = $licenciaService->findById($idLicencia);
-
-        /** @var Barcode $barcodeService */
-        $barcodeService = $this->get('barcode_service');
+        $licencia = $this->licenciaServiceImpl->findById($idLicencia);
 
         return $this->render(
             'AppBundle:Licencia:boleta.pago.pdf.html.twig',
@@ -43,10 +53,7 @@ class BoletaPagoController extends Controller
         error_reporting(E_ERROR); 
         $this->get('logger')->info("BoletaPagoController, imprimirByComprobante, comprobante " . $id);
 
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-
-        $licencia = $licenciaService->findByComprobanteId($id);
+        $licencia = $this->licenciaServiceImpl->findByComprobanteId($id);
         return $this->imprimirAction($request,$licencia->getId());
     }
 
@@ -56,11 +63,8 @@ class BoletaPagoController extends Controller
         $this->get('logger')->info("BoletaPagoController, imprimirAction, licencia " . $licenciaId);
 
         $idLicencia = urldecode($licenciaId);
-        /** @var LicenciaServiceImpl $licenciaService */
-        $licenciaService = $this->get('licencia_service');
-
         /** @var Licencia $licencia */
-        $licencia = $licenciaService->findById($idLicencia);            
+        $licencia = $this->licenciaServiceImpl->findById($idLicencia);
         
         switch ($licencia->getStringTipoLicenciaCazaOPesca()) {
             case 'caza':
@@ -75,8 +79,6 @@ class BoletaPagoController extends Controller
                 $leyNumero = "";     
                 break;
         }
-        
-
 
         $pdf = $this->container->get("white_october.tcpdf")->create('', 
                                     PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);

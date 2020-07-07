@@ -74,110 +74,110 @@
                 {% endfor %}
             </div>
         {% endif %}
-
-<div class="row form">
-
-    <div class="card bg-light col-12 mb-12">
-        <div class="card-header">Licencia Caza y Pesca</div>
-        <div class="clearfix mt-2"></div>
-        <div class="row">
-          <div class="col-4">
-              <div class="card">
-                  <div class="card-header">
-                      Ayuda General
-                  </div>
-                  <div class="card-body">
-                      <h5 class="card-title"></h5>
-                      <p class="card-text">
-                          {% if ayudaGeneral is defined and ayudaGeneral is not null %}
-                              {{ayudaGeneral.valor}}
-                          {% endif %}
-                      </p>
+<div class="container">
+    <div class="row form">
+        <div class="card bg-light col-12 mb-12">
+            <div class="clearfix mt-2"></div>
+            <div class="row">
+              <div class="col-4">
+                  <div class="card">
+                      <div class="card-header bg-info">
+                          <label class="font-weight-bold text-white">Ayuda General</label>
+                      </div>
+                      <div class="card-body">
+                          <h5 class="card-title"></h5>
+                          <p class="card-text">
+                              {% if ayudaGeneral is defined and ayudaGeneral is not null %}
+                                  {{ayudaGeneral.valor}}
+                              {% endif %}
+                          </p>
+                      </div>
                   </div>
               </div>
-          </div>
-          <div class="col-8">
-             <div class="container-fluid">
-                 <div class="stepwizard col-md-offset-3">
-                     <div class="stepwizard-row setup-panel">
-                         <div class="stepwizard-step">
-                             <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
-                             <p>Terminos y Condiciones</p>
-                         </div>
-                         <div class="stepwizard-step">
-                             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-                             <p>Buscar Persona</p>
-                         </div>
-                         <div class="stepwizard-step">
-                             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
-                             <p>Generar Licencia</p>
+              <div class="col-8">
+                 <div class="container-fluid">
+                     <div class="stepwizard col-md-offset-3">
+                         <div class="stepwizard-row setup-panel">
+                             <div class="stepwizard-step">
+                                 <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                                 <p>Terminos y Condiciones</p>
+                             </div>
+                             <div class="stepwizard-step">
+                                 <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+                                 <p>Buscar Persona</p>
+                             </div>
+                             <div class="stepwizard-step">
+                                 <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+                                 <p>Generar Licencia</p>
+                             </div>
                          </div>
                      </div>
-                 </div>
-                      <form name="mprod_licenciacypbundle_licencia" id="mprod_licenciacypbundle_licencia" method="post"
-                            onsubmit="return confirmarGenerarLicencia();">
-                          <div>
-                              <div class="row setup-content" id="step-1">
-                                  <h3> Terminos y Condiciones</h3>
-                                 
-                                      <div class="col-md-12">
-                                              <div id="divTerminosYCondiciones">
-                                                  <p>
-                                                      {% if terminosYCondiciones is defined and terminosYCondiciones is not null %}
-                                                          {{terminosYCondiciones.valor}}
-                                                      {% endif %}
-                                                  </p>
-                                                  <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Aceptar Terminos y Condiciones</button>
-                                              </div>
-                                      </div>
-                                 
-                              </div>
-                              <div class="row setup-content" id="step-2">
-                                  <div class="row col-12">
-                                      <h3 class="text-center clearfix">Complete sus Datos</h3>
+                          <form name="mprod_licenciacypbundle_licencia" id="mprod_licenciacypbundle_licencia" method="post"
+                                onsubmit="return confirmarGenerarLicencia();">
+                              <div>
+                                  <div class="row setup-content" id="step-1">
+                                      <h3> Terminos y Condiciones</h3>
+
+                                          <div class="col-md-12">
+                                                  <div id="divTerminosYCondiciones">
+                                                      <p>
+                                                          {% if terminosYCondiciones is defined and terminosYCondiciones is not null %}
+                                                              {{terminosYCondiciones.valor}}
+                                                          {% endif %}
+                                                      </p>
+                                                      <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Aceptar Terminos y Condiciones</button>
+                                                  </div>
+                                          </div>
+
                                   </div>
-                                 
-                                    <div class="col-12">
-                                          {{ form_start(form) }}
-                                                          {{ form_row(form.persona.tipoDocumento) }}
-                                                            {{ form_row(form.persona.numeroDocumento) }}
-                                                          {{ form_row(form.persona.sexo) }}
-
-
-                                     </div>
-                                     <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" onclick="buscarPersona()">Buscar</button>
-                                 
-                              </div>
-                            <div class="row setup-content" id="step-3">
-                                  <h3> Gestionar Licencia</h3>
-                                 
-                                      <div class="col-12">
-
-                                                      {{ form_row(form.persona.provincia) }}
-                                                      <div id="localidad">
-                                                          {{ form_row(form.persona.localidad) }}
-                                                      </div>
-                                                      <div id="localidadOtraProvincia">
-                                                          {{ form_row(form.persona.localidadOtraProvincia) }}
-                                                      </div>
-                                                      {{form_rest(form)}}
-
-                                                    <button class="btn btn-success btn-lg pull-right" type="submit">Generar Licencia</button>
+                                  <div class="row setup-content" id="step-2">
+                                      <div class="row col-12">
+                                          <h3 class="text-center clearfix">Complete sus Datos</h3>
                                       </div>
-                                 
-                            </div>
-                          </div>
-                    {{ form_end(form) }}
+
+                                        <div class="col-12">
+                                              {{ form_start(form) }}
+                                                              {{ form_row(form.persona.tipoDocumento) }}
+                                                                {{ form_row(form.persona.numeroDocumento) }}
+                                                              {{ form_row(form.persona.sexo) }}
+
+
+                                         </div>
+                                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" onclick="buscarPersona()">Buscar</button>
+
+                                  </div>
+                                <div class="row setup-content" id="step-3">
+                                      <h3> Gestionar Licencia</h3>
+
+                                          <div class="col-12">
+
+                                                          {{ form_row(form.persona.provincia) }}
+                                                          <div id="localidad">
+                                                              {{ form_row(form.persona.localidad) }}
+                                                          </div>
+                                                          <div id="localidadOtraProvincia">
+                                                              {{ form_row(form.persona.localidadOtraProvincia) }}
+                                                          </div>
+                                                          {{form_rest(form)}}
+
+                                                        <button class="btn btn-success btn-lg pull-right" type="submit">Generar Licencia</button>
+                                          </div>
+
+                                </div>
+                              </div>
+                        {{ form_end(form) }}
+                </div>
             </div>
-        </div>
+    </div>
 </div>
 {% endblock %}
 
 {% block javascript %}
 {{ parent() }}
 
-    <script>
-       var navListItems = $('div.setup-panel div a'),
+<script>
+
+  var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),
           allNextBtn = $('.nextBtn');
 
@@ -215,7 +215,6 @@
       if (isValid)
           nextStepWizard.removeAttr('disabled').trigger('click');
   });
-
-  $('div.setup-panel div a.btn-primary').trigger('click');
-    </script>
+   $('div.setup-panel div a.btn-primary').trigger('click');
+</script>
 {% endblock %}

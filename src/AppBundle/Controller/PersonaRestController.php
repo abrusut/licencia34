@@ -2,14 +2,12 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Persona;
-use AppBundle\Exception\SimpleMessageException;
+use AppBundle\Service\JsonServiceImpl;
 use AppBundle\Service\PersonaServiceImpl;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Form\PersonaType;
-use AppBundle\Service\JsonServiceImpl;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PersonaRestController extends Controller
 {
