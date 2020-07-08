@@ -203,9 +203,6 @@ function buscarPersona(){
         "numeroDocumento":numeroDocumento,
         "sexo":sexo
     }
-    console.log(JSON.stringify(parameters));
-    debugger;
-
     var pathBase = $("#includeLicenciajs").attr("data-path-base");
     var debug = '?XDEBUG_SESSION_START=13128';
     if(!isEmpty(tipoDocumento) &&
@@ -213,7 +210,6 @@ function buscarPersona(){
         !isEmpty(sexo)
         )
         {
-
             $.ajax({  
                 url:        pathBase + 'persona/findBy/'+ tipoDocumento + '/' + numeroDocumento +'/'+ sexo + debug ,
                 type:       'POST',   

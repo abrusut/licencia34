@@ -126,12 +126,13 @@
                                                               {{terminosYCondiciones.valor}}
                                                           {% endif %}
                                                       </p>
-                                                      <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Aceptar Terminos y Condiciones</button>
+                                                      <button class="btn btn-primary nextBtn
+                                                      btn-lg pull-right" type="button" id="terminosYCondicionesBtn" >Aceptar Terminos y Condiciones</button>
                                                   </div>
                                           </div>
 
                                   </div>
-                                  <div class="row setup-content" id="step-2">
+                                  <div class="row setup-content disabledPanel" id="step-2">
                                       <div class="row col-12">
                                           <h3 class="text-center clearfix">Complete sus Datos</h3>
                                       </div>
@@ -144,10 +145,11 @@
 
 
                                          </div>
-                                         <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" onclick="buscarPersona()">Buscar</button>
+                                         <button class="btn btn-primary nextBtn btn-lg pull-right"
+                                                 type="button" onclick="buscoPersona=true;buscarPersona()">Buscar</button>
 
                                   </div>
-                                <div class="row setup-content" id="step-3">
+                                <div class="row setup-content disabledPanel" id="step-3">
                                       <h3> Gestionar Licencia</h3>
 
                                           <div class="col-12">
@@ -177,15 +179,22 @@
 {{ parent() }}
 
 <script>
-
-  var navListItems = $('div.setup-panel div a'),
+    var aceptoTerminosYCondiciones = false;
+    var buscoPersona = false;
+    var navListItems = $('div.setup-panel div a'),
           allWells = $('.setup-content'),
           allNextBtn = $('.nextBtn');
+          terminosYCondicionesBtn = $('#terminosYCondicionesBtn');
 
   allWells.hide();
 
+  terminosYCondicionesBtn.click(function (e) {
+      e.preventDefault();
+      aceptoTerminosYCondiciones = true;
+   });
   navListItems.click(function (e) {
       e.preventDefault();
+      debugger;
       var $target = $($(this).attr('href')),
               $item = $(this);
 
@@ -193,6 +202,15 @@
           navListItems.removeClass('btn-primary').addClass('btn-default');
           $item.addClass('btn-primary');
           allWells.hide();
+
+          if(aceptoTerminosYCondiciones && $target.attr('id') == 'step-2'){
+            $target.removeClass('disabledPanel')
+          }
+
+          if(buscoPersona && $target.attr('id') == 'step-3'){
+            $target.removeClass('disabledPanel')
+          }
+
           $target.show();
           $target.find('input:eq(0)').focus();
       }
