@@ -163,10 +163,6 @@ function configureSteps(){
 }
 function step1()
 {
-    $('#divTerminosYCondiciones').show();
-    $('#divBusquedaPersona').hide(); 
-    $('#divFormularioLicencia').hide();    
-    
     $('#divBusquedaPersona').addClass("disabledPanel");
     $('#divFormularioLicencia').addClass("disabledPanel");
 }
@@ -180,9 +176,7 @@ function step2()
 function step3()
 {
     $('div.setup-panel #step-3').trigger('click');
-    $('#divTerminosYCondiciones').hide();
-    $('#divBusquedaPersona').hide(); 
-    $('#divFormularioLicencia').show();       
+
     $('#divFormularioLicencia').removeClass("disabledPanel");
 
     var provinciaId =  $('#gestionar_licencia_persona_provincia').val();
